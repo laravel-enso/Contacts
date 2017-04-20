@@ -2,14 +2,12 @@
 
 namespace LaravelEnso\ContactPersons\app\DataTable;
 
-
 use LaravelEnso\DataTable\app\Classes\Abstracts\TableStructure;
 
-
-class ContactPersonsTableStructure extends TableStructure {
-
-    public function __construct() {
-
+class ContactPersonsTableStructure extends TableStructure
+{
+    public function __construct()
+    {
         $this->data = [
 
             'crtNo'         => __('#'),

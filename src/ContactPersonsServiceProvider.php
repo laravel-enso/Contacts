@@ -4,16 +4,15 @@ namespace LaravelEnso\ContactPersons;
 
 use Illuminate\Support\ServiceProvider;
 
-class ContactPersonsServiceProvider extends ServiceProvider {
-
+class ContactPersonsServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap the application services.
      *
      * @return void
      */
-    public function boot() {
-
-
+    public function boot()
+    {
         $this->publishes([
             __DIR__.'/resources/views/contactPersons/' => resource_path('views/vendor/laravel-enso/contactPersons/pages'),
         ], 'contact-persons-views');
@@ -28,7 +27,8 @@ class ContactPersonsServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         //
     }
 }
