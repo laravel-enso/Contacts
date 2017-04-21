@@ -89,7 +89,7 @@ class ContactPersonsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request|ValidateContactPersonRequest $request
-     * @param ContactPerson $contactPerson
+     * @param ContactPerson                        $contactPerson
      *
      * @return \Illuminate\Http\Response
      */
