@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
 use LaravelEnso\ContactPersons\app\DataTable\ContactPersonsTableStructure;
+use LaravelEnso\ContactPersons\app\Http\Requests\ValidateContactPersonRequest;
 use LaravelEnso\ContactPersons\app\Models\ContactPerson;
 use LaravelEnso\DataTable\app\Traits\DataTable;
 
@@ -55,11 +56,11 @@ class ContactPersonsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ValidateContactPersonRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidateContactPersonRequest $request)
     {
         $contactPerson = new ContactPerson();
         $contactPerson->fill($request->all());
@@ -87,12 +88,12 @@ class ContactPersonsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param ContactPerson            $contactPerson
+     * @param Request|ValidateContactPersonRequest $request
+     * @param ContactPerson $contactPerson
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContactPerson $contactPerson)
+    public function update(ValidateContactPersonRequest $request, ContactPerson $contactPerson)
     {
         DB::transaction(function () use ($request, $contactPerson) {
             $contactPerson->fill($request->all());
