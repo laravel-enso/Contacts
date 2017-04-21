@@ -4,15 +4,15 @@ namespace LaravelEnso\ContactPersons\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateContactPersonRequest extends FormRequest {
-
-    public function authorize() {
-
+class ValidateContactPersonRequest extends FormRequest
+{
+    public function authorize()
+    {
         return true;
     }
 
-    public function rules() {
-
+    public function rules()
+    {
         return [
             'name'      => 'required|max:50',
             'role_id'   => 'required|numeric|exists:roles,id',
