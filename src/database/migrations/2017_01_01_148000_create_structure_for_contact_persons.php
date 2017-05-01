@@ -21,7 +21,7 @@ class CreateStructureForContactPersons extends StructureMigration
     ];
 
     protected $menu = [
-        'name' => 'Contact Persons', 'icon' => 'fa fa-fw fa-address-book-o', 'link' => 'administration/contactPersons', 'has_children' => 0
+        'name' => 'Contact Persons', 'icon' => 'fa fa-fw fa-address-book-o', 'link' => 'administration/contactPersons', 'has_children' => 0,
     ];
 
     protected $parentMenu = 'Administration';

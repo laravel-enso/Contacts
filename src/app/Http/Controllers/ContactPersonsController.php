@@ -20,7 +20,7 @@ class ContactPersonsController extends Controller
     public static function getTableQuery()
     {
         $customParams = json_decode(request('customParams'));
-        $ownerId      = $customParams->owner_id;
+        $ownerId = $customParams->owner_id;
 
         $query = ContactPerson::select(\DB::raw('contact_persons.id as DT_RowId, contact_persons.first_name,
             contact_persons.last_name, contact_persons.phone, contact_persons.email, owners.name as owner_name'))
@@ -66,7 +66,7 @@ class ContactPersonsController extends Controller
         $contactPerson->save();
         flash()->success(__('The Contact Person was added!'));
 
-        return redirect('administration/contactPersons/' . $contactPerson->id . '/edit');
+        return redirect('administration/contactPersons/'.$contactPerson->id.'/edit');
     }
 
     /**
