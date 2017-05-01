@@ -3,9 +3,6 @@
 namespace LaravelEnso\ContactPersons\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Laracasts\Flash\Flash;
 use LaravelEnso\ContactPersons\app\DataTable\ContactPersonsTableStructure;
 use LaravelEnso\ContactPersons\app\Http\Requests\ValidateContactPersonRequest;
 use LaravelEnso\ContactPersons\app\Models\ContactPerson;
@@ -14,15 +11,16 @@ use LaravelEnso\DataTable\app\Traits\DataTable;
 class ContactPersonsController extends Controller
 {
     use DataTable;
+
     protected $tableStructureClass = ContactPersonsTableStructure::class;
 
     public static function getTableQuery()
     {
         $customParams = json_decode(request('customParams'));
-        $ownerId = $customParams->owner_id;
+        $ownerId      = $customParams->owner_id;
 
-        $query = ContactPerson::select(DB::raw('contact_persons.id as DT_RowId, contact_persons.name, 
-                contact_persons.telephone, contact_persons.email, 
+        $query = ContactPerson::select(\DB::raw('contact_persons.id as DT_RowId, contact_persons.name,
+                contact_persons.telephone, contact_persons.email,
                 owners.name as owner_name'))
             ->join('owners', 'owners.id', '=', 'contact_persons.owner_id');
 
@@ -40,7 +38,7 @@ class ContactPersonsController extends Controller
      */
     public function index()
     {
-        return view('laravel-enso/contact-persons::contactPersons.index');
+        return view('laravel-enso/contactpersons::index');
     }
 
     /**
@@ -50,7 +48,7 @@ class ContactPersonsController extends Controller
      */
     public function create()
     {
-        return view('laravel-enso/contact-persons::contactPersons.create');
+        return view('laravel-enso/contactpersons::create');
     }
 
     /**
@@ -62,15 +60,11 @@ class ContactPersonsController extends Controller
      */
     public function store(ValidateContactPersonRequest $request)
     {
-        $contactPerson = new ContactPerson();
-        $contactPerson->fill($request->all());
-        DB::transaction(function () use ($contactPerson) {
-            $contactPerson->save();
+        $contactPerson = ContactPerson::create($request->all());
+        $contactPerson->save();
+        flash()->success(__('The Contact Person was added!'));
 
-            Flash::success(__('The Contact Person was added!'));
-        });
-
-        return redirect('administration/contactPersons/'.$contactPerson->id.'/edit');
+        return redirect('administration/contactPersons/' . $contactPerson->id . '/edit');
     }
 
     /**
@@ -82,7 +76,7 @@ class ContactPersonsController extends Controller
      */
     public function edit(ContactPerson $contactPerson)
     {
-        return view('laravel-enso/contact-persons::contactPersons.edit', compact('contactPerson'));
+        return view('laravel-enso/contactpersons::edit', compact('contactPerson'));
     }
 
     /**
@@ -95,12 +89,10 @@ class ContactPersonsController extends Controller
      */
     public function update(ValidateContactPersonRequest $request, ContactPerson $contactPerson)
     {
-        DB::transaction(function () use ($request, $contactPerson) {
-            $contactPerson->fill($request->all());
-            $contactPerson->save();
+        $contactPerson->fill($request->all());
+        $contactPerson->save();
 
-            Flash::success(__('The Changes have been saved!'));
-        });
+        flash()->success(__('The Changes have been saved!'));
 
         return back();
     }
@@ -114,32 +106,20 @@ class ContactPersonsController extends Controller
      */
     public function destroy(ContactPerson $contactPerson)
     {
-        $code = 0;
-        $level = 'error';
-        $message = 'default';
-
-        //actually do the delete
         $contactPerson->delete();
 
-        //prep the success response
-        $code = 200;
-        $level = 'success';
-        $message = __('Operation was successful');
-
-        return response()->json([
-            'code'    => $code,
-            'level'   => $level,
-            'message' => $message,
-        ], $code);
+        return [
+            'message' => __('Operation was successful'),
+        ];
     }
 
     public function getOptionsList()
     {
-        $ids = (array) request('selected'); //may be one or more depending on the type of the select
+        $ids   = (array) request('selected'); //may be one or more depending on the type of the select
         $query = request('query');
 
         $selected = ContactPerson::whereIn('id', $ids)->get();
-        $entities = ContactPerson::where('name', 'like', '%'.$query.'%')
+        $entities = ContactPerson::where('name', 'like', '%' . $query . '%')
             ->limit(10)->get();
 
         $entities = $entities->merge($selected)->pluck('name', 'id');

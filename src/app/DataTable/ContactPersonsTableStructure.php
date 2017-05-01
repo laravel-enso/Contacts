@@ -14,7 +14,6 @@ class ContactPersonsTableStructure extends TableStructure
             'actionButtons' => __('Actions'),
             'headerAlign'   => 'center',
             'bodyAlign'     => 'center',
-            'dom'           => '<"pull-right"l><"pull-left"f>rtip',
             'tableClass'    => 'table display',
             'columns'       => [
 

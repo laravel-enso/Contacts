@@ -14,12 +14,12 @@ class ContactPersonsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/resources/views/contactPersons/' => resource_path('views/vendor/laravel-enso/contactPersons/pages'),
-        ], 'contact-persons-views');
+            __DIR__.'/resources/views/' => resource_path('views/vendor/laravel-enso/contactpersons'),
+        ], 'contactpersons-views');
 
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-enso/contact-persons');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-enso/contactpersons');
     }
 
     /**

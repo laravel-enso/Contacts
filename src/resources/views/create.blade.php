@@ -27,7 +27,7 @@
                 <div class="box-body">
                     {!! Form::open(['method' => 'POST', 'url' => '/administration/contactPersons']) !!}
                     <div class="row">
-                        @include('administration.contactPersons.form')
+                        @include('laravel-enso/contactpersons::form')
                     </div>
                     <center>
                         {!! Form::submit(__("Save"), ['class' => 'btn btn-primary ']) !!}

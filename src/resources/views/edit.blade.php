@@ -27,7 +27,7 @@
                 <div class="box-body">
                     {!! Form::model($contactPerson, ['method' => 'PATCH', 'url' => '/administration/contactPersons/'.$contactPerson->id]) !!}
                     <div class="row">
-                        @include('administration.contactPersons.form')
+                        @include('laravel-enso/contactpersons::form')
                     </div>
                     <center class="margin-bottom">
                         {!! Form::submit(__("Save"), ['class' => 'btn btn-primary ']) !!}
