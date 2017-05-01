@@ -19,8 +19,9 @@ class CreateContactPersonsTable extends Migration
             $table->integer('owner_id')->unsigned()->index()->nullable();
             $table->foreign('owner_id')->references('id')->on('owners')->onUpdate('restrict')->onDelete('restrict');
 
-            $table->string('name');
-            $table->string('telephone')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone')->nullable();
             $table->string('email')->nullable();
 
             $table->timestamps();

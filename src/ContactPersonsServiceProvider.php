@@ -17,8 +17,8 @@ class ContactPersonsServiceProvider extends ServiceProvider
             __DIR__.'/resources/views/' => resource_path('views/vendor/laravel-enso/contactpersons'),
         ], 'contactpersons-views');
 
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-enso/contactpersons');
     }
 

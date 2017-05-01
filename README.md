@@ -4,7 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contactpersons/downloads)](https://packagist.org/packages/laravel-enso/cnpvalidator)
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/contactpersons/version)](https://packagist.org/packages/laravel-enso/cnpvalidator)
 
-Contact Persons Package for LaravelEnso\Core
+Contact Persons Extension for LaravelEnso\Core
 
 ### Instalation
 

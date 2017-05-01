@@ -14,11 +14,11 @@ class ValidateContactPersonRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required|max:50',
-            'role_id'   => 'required|numeric|exists:roles,id',
-            'owner_id'  => 'required|numeric|exists:owners,id',
-            'email'     => 'required|email',
-            'telephone' => 'required',
+            'first_name' => 'required|max:50',
+            'last_name'  => 'required|max:50',
+            'owner_id'   => 'required|numeric|exists:owners,id',
+            'email'      => 'required|email',
+            'phone'      => 'required',
         ];
     }
 }
