@@ -4,13 +4,22 @@
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contactpersons/downloads)](https://packagist.org/packages/laravel-enso/contactpersons)
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/contactpersons/version)](https://packagist.org/packages/laravel-enso/contactpersons)
 
-Contact Persons Extension for LaravelEnso\Core
+Contact Persons for Laravel Enso
 
-### Instalation
+### Instalation Steps
 
 1. Add `LaravelEnso\ContactPersons\ContactPersonsServiceProvider::class` to `config/app.php`.
 
 2. Run the migrations.
+
+3. Add the following relationship to the Owner model
+
+```php
+public function contact_persons()
+{
+    return $this->hasMany('LaravelEnso\ContactPersons\app\Models\ContactPerson');
+}
+```
 
 ## Note
 

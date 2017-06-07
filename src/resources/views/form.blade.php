@@ -23,9 +23,8 @@
             {{ $errors->first('owner_id') }}
         </small>
         <vue-select source="/administration/owners/getOptionsList"
-                    name="owner_id"
-                    selected="{{ $contactPerson->owner_id or 0 }}"
-                    >
+            name="owner_id"
+            selected="{{ $contactPerson->owner_id or 0 }}">
         </vue-select>
     </div>
 </div>
@@ -45,5 +44,14 @@
             {{ $errors->first('email') }}
         </small>
         {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => __("Please Fill")]) !!}
+    </div>
+</div>
+<div class="col-sm-6">
+    <div class="form-group{{ $errors->has('is_active') ? ' has-error' : '' }}">
+        {!! Form::label('is_active', __("Active")) !!}
+        <small class="text-danger" style="float:right;">
+            {{ $errors->first('is_active') }}
+        </small>
+        {!! Form::select('is_active', $statuses, null, ['class' => 'form-control select']) !!}
     </div>
 </div>
