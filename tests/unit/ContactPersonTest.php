@@ -75,35 +75,6 @@ class ContactPersonTest extends TestCase
         ];
     }
 
-    private function dtParams()
-    {
-        return [
-            'draw'    => '2',
-            'columns' => [
-                0 => [
-                    'data'       => 'last_name',
-                    'name'       => 'contact_persons.last_name',
-                    'searchable' => 'true',
-                    'orderable'  => 'true',
-                    'search'     => [
-                        'value' => null,
-                        'regex' => 'false',
-                        ],
-                ],
-            ],
-            'start'  => '0',
-            'length' => '10',
-            'search' => [
-                'value' => null,
-                'regex' => 'false',
-            ],
-            'extraFilters'    => 'null',
-            'intervalFilters' => 'null',
-            'customParams'    => 'null',
-            '_'               => '1496837540015',
-        ];
-    }
-
     private function contactPersonWasCreated()
     {
         return ContactPerson::all()->count() === 1;
