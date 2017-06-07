@@ -19,7 +19,7 @@ class ContactPersonController extends Controller
     {
         $query = ContactPerson::select(\DB::raw('contact_persons.id as DT_RowId,
             contact_persons.first_name, contact_persons.last_name, contact_persons.phone,
-            contact_persons.email, owners.name as owner_namea, contact_persons.is_active'))
+            contact_persons.email, owners.name as owner_name, contact_persons.is_active'))
             ->join('owners', 'owners.id', '=', 'contact_persons.owner_id');
 
         return $query;
@@ -42,7 +42,7 @@ class ContactPersonController extends Controller
         $contactPerson = $contactPerson->create($request->all());
         flash()->success(__('The Contact Person was added!'));
 
-        return redirect('administration/contactPersons/'.$contactPerson->id.'/edit');
+        return redirect('administration/contactPersons/' . $contactPerson->id . '/edit');
     }
 
     public function edit(ContactPerson $contactPerson)
