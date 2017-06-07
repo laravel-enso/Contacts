@@ -42,7 +42,7 @@ class ContactPersonController extends Controller
         $contactPerson = $contactPerson->create($request->all());
         flash()->success(__('The Contact Person was added!'));
 
-        return redirect('administration/contactPersons/' . $contactPerson->id . '/edit');
+        return redirect('administration/contactPersons/'.$contactPerson->id.'/edit');
     }
 
     public function edit(ContactPerson $contactPerson)
