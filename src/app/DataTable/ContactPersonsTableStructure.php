@@ -15,8 +15,8 @@ class ContactPersonsTableStructure extends TableStructure
             'headerAlign'   => 'center',
             'bodyAlign'     => 'center',
             'tableClass'    => 'table display',
-            'enumMappings' => [
-                'is_active' => IsActiveEnum::class
+            'enumMappings'  => [
+                'is_active' => IsActiveEnum::class,
             ],
             'columns'       => [
                 0 => [

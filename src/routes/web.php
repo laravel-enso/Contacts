@@ -1,8 +1,8 @@
 <?php
 
 Route::group([
-	'namespace' => 'LaravelEnso\ContactPersons\app\Http\Controllers',
-	'middleware' => ['web', 'auth', 'core']
+    'namespace'  => 'LaravelEnso\ContactPersons\app\Http\Controllers',
+    'middleware' => ['web', 'auth', 'core'],
 ], function () {
     Route::group(['prefix' => 'administration/contactPersons', 'as' => 'administration.contactPersons.'], function () {
         Route::get('initTable', 'ContactPersonController@initTable')->name('initTable');

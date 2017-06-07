@@ -31,13 +31,13 @@ class ValidateContactPersonRequest extends FormRequest
             'email'      => [
                 'email',
                 'required',
-                $emailUnique
+                $emailUnique,
             ],
             'phone'      => [
                 'required',
-                $phoneUnique
+                $phoneUnique,
             ],
-            'is_active' => 'required|in:0,1'
+            'is_active' => 'required|in:0,1',
         ];
     }
 }

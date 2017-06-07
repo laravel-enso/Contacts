@@ -42,7 +42,7 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function update_contact_person()
     {
-    	$data = $this->postParams();
+        $data = $this->postParams();
         $response = $this->post('/administration/contactPersons', $data);
         $data['first_name'] = 'edited';
         $data['_method'] = 'PATCH';
@@ -55,7 +55,7 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function delete_contact_person()
     {
-    	$this->post('/administration/contactPersons', $this->postParams());
+        $this->post('/administration/contactPersons', $this->postParams());
 
         $response = $this->delete('/administration/contactPersons/1');
 
@@ -65,56 +65,54 @@ class ContactPersonTest extends TestCase
     private function postParams()
     {
         return [
-        	'owner_id' => 1,
-        	'first_name' => $this->faker->firstName,
-        	'last_name' => $this->faker->lastName,
-        	'phone' => $this->faker->phoneNumber,
-        	'email' => $this->faker->email,
-        	'is_active' => 1,
-        	'_method' => 'POST'
+            'owner_id'   => 1,
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName,
+            'phone'      => $this->faker->phoneNumber,
+            'email'      => $this->faker->email,
+            'is_active'  => 1,
+            '_method'    => 'POST',
         ];
     }
 
     private function dtParams()
     {
-    	return [
-    		'draw' => '2',
-			'columns' => [
-				0 => [
-					'data' => 'last_name',
-					'name' => 'contact_persons.last_name',
-					'searchable' => 'true',
-					'orderable' => 'true',
-					'search' =>
-						[
-						'value' => NULL,
-						'regex' => 'false',
-						],
-				],
-			],
-			'start' => '0',
-			'length' => '10',
-			'search' =>
-			[
-				'value' => NULL,
-				'regex' => 'false',
-			],
-			'extraFilters' => 'null',
-			'intervalFilters' => 'null',
-			'customParams' => 'null',
-			'_' => '1496837540015',
-    	];
+        return [
+            'draw'    => '2',
+            'columns' => [
+                0 => [
+                    'data'       => 'last_name',
+                    'name'       => 'contact_persons.last_name',
+                    'searchable' => 'true',
+                    'orderable'  => 'true',
+                    'search'     => [
+                        'value' => null,
+                        'regex' => 'false',
+                        ],
+                ],
+            ],
+            'start'  => '0',
+            'length' => '10',
+            'search' => [
+                'value' => null,
+                'regex' => 'false',
+            ],
+            'extraFilters'    => 'null',
+            'intervalFilters' => 'null',
+            'customParams'    => 'null',
+            '_'               => '1496837540015',
+        ];
     }
 
     private function contactPersonWasCreated()
     {
-    	return ContactPerson::all()->count() === 1;
+        return ContactPerson::all()->count() === 1;
     }
 
     private function contactPersonWasEdited()
     {
-    	$contactPerson = ContactPerson::first();
+        $contactPerson = ContactPerson::first();
 
-    	return $contactPerson->first_name === 'edited';
+        return $contactPerson->first_name === 'edited';
     }
 }
