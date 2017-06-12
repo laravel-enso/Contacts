@@ -3,7 +3,7 @@
 namespace LaravelEnso\ContactPersons\app\DataTable;
 
 use LaravelEnso\Core\app\Enums\IsActiveEnum;
-use LaravelEnso\DataTable\app\Classes\Abstracts\TableStructure;
+use LaravelEnso\DataTable\app\Classes\TableStructure;
 
 class ContactPersonsTableStructure extends TableStructure
 {
