@@ -23,24 +23,23 @@ class ContactPersonTest extends TestCase
     }
 
     /** @test */
-    public function create_contact_person()
+    public function create()
     {
-        $data = $this->postParams();
-        $response = $this->post('/administration/contactPersons', $data);
-
-        $response->assertStatus(302);
-        $this->assertTrue($this->contactPersonWasCreated());
+        $response = $this->post('/administration/contactPersons', $this->postParams());
+        $this->assertTrue($this->wasCreated());
+        $contactPerson = ContactPerson::first();
+        $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id.'/edit');
     }
 
     /** @test */
-    public function can_get_contact_persons_index()
+    public function index()
     {
         $response = $this->get('/administration/contactPersons');
         $response->assertStatus(200);
     }
 
     /** @test */
-    public function update_contact_person()
+    public function update()
     {
         $data = $this->postParams();
         $response = $this->post('/administration/contactPersons', $data);
@@ -49,11 +48,11 @@ class ContactPersonTest extends TestCase
         $response = $this->patch('/administration/contactPersons/1', $data);
 
         $response->assertStatus(302);
-        $this->assertTrue($this->contactPersonWasEdited());
+        $this->assertTrue($this->wasEdited());
     }
 
     /** @test */
-    public function delete_contact_person()
+    public function destroy()
     {
         $this->post('/administration/contactPersons', $this->postParams());
 
@@ -75,12 +74,12 @@ class ContactPersonTest extends TestCase
         ];
     }
 
-    private function contactPersonWasCreated()
+    private function wasCreated()
     {
-        return ContactPerson::all()->count() === 1;
+        return ContactPerson::count() === 1;
     }
 
-    private function contactPersonWasEdited()
+    private function wasEdited()
     {
         $contactPerson = ContactPerson::first();
 
