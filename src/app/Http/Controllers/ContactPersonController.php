@@ -15,7 +15,7 @@ class ContactPersonController extends Controller
 
     protected $tableStructureClass = ContactPersonsTableStructure::class;
 
-    public static function getTableQuery()
+    public function getTableQuery()
     {
         $query = ContactPerson::select(\DB::raw('contact_persons.id as DT_RowId,
             contact_persons.first_name, contact_persons.last_name, contact_persons.phone,
