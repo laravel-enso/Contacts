@@ -7,7 +7,7 @@
         <a class="btn btn-primary" href="/administration/contactPersons/create">
             {{ __("Add Contact Person") }}
         </a>
-        @include('laravel-enso/core::partials.breadcrumbs')
+        @include('laravel-enso/menumanager::breadcrumbs')
     </section>
     <section class="content">
         <div class="row" v-cloak>
