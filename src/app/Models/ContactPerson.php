@@ -17,11 +17,6 @@ class ContactPerson extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('is_active', 1);
-    }
-
-    public function getFormattedDateAttribute()
-    {
-        return $this->create_at->format('Y');
+        return $query->whereIsActive(true);
     }
 }

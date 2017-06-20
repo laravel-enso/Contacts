@@ -17,12 +17,10 @@ class ContactPersonController extends Controller
 
     public function getTableQuery()
     {
-        $query = ContactPerson::select(\DB::raw('contact_persons.id as DT_RowId,
+        return ContactPerson::select(\DB::raw('contact_persons.id as DT_RowId,
             contact_persons.first_name, contact_persons.last_name, contact_persons.phone,
             contact_persons.email, owners.name as owner_name, contact_persons.is_active'))
             ->join('owners', 'owners.id', '=', 'contact_persons.owner_id');
-
-        return $query;
     }
 
     public function index()
@@ -40,7 +38,7 @@ class ContactPersonController extends Controller
     public function store(ValidateContactPersonRequest $request, ContactPerson $contactPerson)
     {
         $contactPerson = $contactPerson->create($request->all());
-        flash()->success(__('The Contact Person was added!'));
+        flash()->success(__('The contact person was added!'));
 
         return redirect('administration/contactPersons/'.$contactPerson->id.'/edit');
     }
@@ -55,7 +53,7 @@ class ContactPersonController extends Controller
     public function update(ValidateContactPersonRequest $request, ContactPerson $contactPerson)
     {
         $contactPerson->update($request->all());
-        flash()->success(__('The Changes have been saved!'));
+        flash()->success(__('The changes have been saved!'));
 
         return back();
     }

@@ -10,16 +10,15 @@ class ContactPersonTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $user;
     private $faker;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->user = User::first();
+        $user = User::first();
+        $this->actingAs($user);
         $this->faker = Factory::create();
-        $this->be($this->user);
     }
 
     /** @test */
@@ -46,7 +45,6 @@ class ContactPersonTest extends TestCase
         $data['first_name'] = 'edited';
         $data['_method'] = 'PATCH';
         $response = $this->patch('/administration/contactPersons/1', $data);
-
         $response->assertStatus(302);
         $this->assertTrue($this->wasEdited());
     }
@@ -55,9 +53,7 @@ class ContactPersonTest extends TestCase
     public function destroy()
     {
         $this->post('/administration/contactPersons', $this->postParams());
-
         $response = $this->delete('/administration/contactPersons/1');
-
         $response->assertStatus(200);
     }
 

@@ -1,7 +1,7 @@
 {
     "name": "laravel-enso/contactpersons",
-    "description": "Contact Persons extension",
-    "type": "library",
+    "description": "Contact Persons plugin for Larave Enso",
+    "type": "plugin",
     "license": "MIT",
     "authors": [
         {

@@ -4,7 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contactpersons/downloads)](https://packagist.org/packages/laravel-enso/contactpersons)
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/contactpersons/version)](https://packagist.org/packages/laravel-enso/contactpersons)
 
-Contact Persons for Laravel Enso
+Contact Persons plugin for Laravel Enso
 
 ### Instalation Steps
 
@@ -20,10 +20,6 @@ public function contact_persons()
     return $this->hasMany('LaravelEnso\ContactPersons\app\Models\ContactPerson');
 }
 ```
-
-## Note
-
-If you need to customize the interface you can publish the views with `php artisan vendor:publish --tag=contactpersons-views`.
 
 ### Contributions
 
