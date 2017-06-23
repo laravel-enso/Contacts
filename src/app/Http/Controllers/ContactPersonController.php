@@ -8,10 +8,11 @@ use LaravelEnso\ContactPersons\app\Http\Requests\ValidateContactPersonRequest;
 use LaravelEnso\ContactPersons\app\Models\ContactPerson;
 use LaravelEnso\Core\app\Enums\IsActiveEnum;
 use LaravelEnso\DataTable\app\Traits\DataTable;
+use LaravelEnso\Helpers\Traits\IsActiveTrait;
 
 class ContactPersonController extends Controller
 {
-    use DataTable;
+    use DataTable, IsActiveTrait;
 
     protected $tableStructureClass = ContactPersonsTableStructure::class;
 
