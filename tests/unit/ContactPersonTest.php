@@ -10,24 +10,17 @@ class ContactPersonTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private $user;
     private $faker;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $user = User::first();
-        $this->actingAs($user);
+        // $this->disableExceptionHandling();
+        $this->user  = User::first();
         $this->faker = Factory::create();
-    }
-
-    /** @test */
-    public function create()
-    {
-        $response = $this->post('/administration/contactPersons', $this->postParams());
-        $this->assertTrue($this->wasCreated());
-        $contactPerson = ContactPerson::first();
-        $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id.'/edit');
+        $this->actingAs($this->user);
     }
 
     /** @test */
@@ -38,23 +31,75 @@ class ContactPersonTest extends TestCase
     }
 
     /** @test */
+    public function create()
+    {
+        $response = $this->get('/administration/contactPersons/create');
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function store()
+    {
+        $response      = $this->post('/administration/contactPersons', $this->postParams());
+        $contactPerson = ContactPerson::first(['id']);
+        $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id . '/edit');
+        $this->hasSessionConfirmation($response);
+        $this->assertTrue($this->wasCreated());
+    }
+
+    /** @test */
+    public function edit()
+    {
+        ContactPerson::create($this->postParams());
+        $contactPerson = ContactPerson::first();
+        $response      = $this->get('/administration/contactPersons/'.$contactPerson->id . '/edit');
+        $response->assertStatus(200);
+        $response->assertViewHas('contactPerson', $contactPerson);
+    }
+
+    /** @test */
     public function update()
     {
-        $data = $this->postParams();
-        $response = $this->post('/administration/contactPersons', $data);
-        $data['first_name'] = 'edited';
-        $data['_method'] = 'PATCH';
-        $response = $this->patch('/administration/contactPersons/1', $data);
+        ContactPerson::create($this->postParams());
+        $contactPerson               = ContactPerson::first();
+        $contactPerson['first_name'] = 'edited';
+        $contactPerson['_method']    = 'PATCH';
+        $response                    = $this->patch('/administration/contactPersons/'.$contactPerson->id, $contactPerson->toArray());
         $response->assertStatus(302);
-        $this->assertTrue($this->wasEdited());
+        $this->hasSessionConfirmation($response);
+        $this->assertTrue($this->wasUpdated());
     }
 
     /** @test */
     public function destroy()
     {
-        $this->post('/administration/contactPersons', $this->postParams());
-        $response = $this->delete('/administration/contactPersons/1');
+        ContactPerson::create($this->postParams());
+        $contactPerson = ContactPerson::first(['id']);
+        $response      = $this->delete('/administration/contactPersons/'.$contactPerson->id);
+        $this->hasJsonConfirmation($response);
         $response->assertStatus(200);
+    }
+
+    private function wasCreated()
+    {
+        return ContactPerson::count() === 1;
+    }
+
+    private function wasUpdated()
+    {
+        $contactPerson = ContactPerson::first(['first_name']);
+
+        return $contactPerson->first_name === 'edited';
+    }
+
+    private function hasJsonConfirmation($response)
+    {
+        return $response->assertJsonFragment(['message']);
+    }
+
+    private function hasSessionConfirmation($response)
+    {
+        return $response->assertSessionHas('flash_notification');
     }
 
     private function postParams()
@@ -68,17 +113,5 @@ class ContactPersonTest extends TestCase
             'is_active'  => 1,
             '_method'    => 'POST',
         ];
-    }
-
-    private function wasCreated()
-    {
-        return ContactPerson::count() === 1;
-    }
-
-    private function wasEdited()
-    {
-        $contactPerson = ContactPerson::first();
-
-        return $contactPerson->first_name === 'edited';
     }
 }
