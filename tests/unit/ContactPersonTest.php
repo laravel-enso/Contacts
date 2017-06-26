@@ -18,7 +18,7 @@ class ContactPersonTest extends TestCase
         parent::setUp();
 
         // $this->disableExceptionHandling();
-        $this->user  = User::first();
+        $this->user = User::first();
         $this->faker = Factory::create();
         $this->actingAs($this->user);
     }
@@ -40,9 +40,9 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function store()
     {
-        $response      = $this->post('/administration/contactPersons', $this->postParams());
+        $response = $this->post('/administration/contactPersons', $this->postParams());
         $contactPerson = ContactPerson::first(['id']);
-        $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id . '/edit');
+        $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id.'/edit');
         $this->hasSessionConfirmation($response);
         $this->assertTrue($this->wasCreated());
     }
@@ -52,7 +52,7 @@ class ContactPersonTest extends TestCase
     {
         ContactPerson::create($this->postParams());
         $contactPerson = ContactPerson::first();
-        $response      = $this->get('/administration/contactPersons/'.$contactPerson->id . '/edit');
+        $response = $this->get('/administration/contactPersons/'.$contactPerson->id.'/edit');
         $response->assertStatus(200);
         $response->assertViewHas('contactPerson', $contactPerson);
     }
@@ -61,10 +61,10 @@ class ContactPersonTest extends TestCase
     public function update()
     {
         ContactPerson::create($this->postParams());
-        $contactPerson               = ContactPerson::first();
+        $contactPerson = ContactPerson::first();
         $contactPerson['first_name'] = 'edited';
-        $contactPerson['_method']    = 'PATCH';
-        $response                    = $this->patch('/administration/contactPersons/'.$contactPerson->id, $contactPerson->toArray());
+        $contactPerson['_method'] = 'PATCH';
+        $response = $this->patch('/administration/contactPersons/'.$contactPerson->id, $contactPerson->toArray());
         $response->assertStatus(302);
         $this->hasSessionConfirmation($response);
         $this->assertTrue($this->wasUpdated());
@@ -75,7 +75,7 @@ class ContactPersonTest extends TestCase
     {
         ContactPerson::create($this->postParams());
         $contactPerson = ContactPerson::first(['id']);
-        $response      = $this->delete('/administration/contactPersons/'.$contactPerson->id);
+        $response = $this->delete('/administration/contactPersons/'.$contactPerson->id);
         $this->hasJsonConfirmation($response);
         $response->assertStatus(200);
     }
