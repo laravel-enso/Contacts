@@ -10,8 +10,8 @@ class CreateStructureForContactPersons extends StructureMigration
 
     protected $permissions = [
         ['name' => 'administration.contactPersons.index', 'description' => 'Contact persons index', 'type' => 0, 'default' => false],
-        ['name' => 'administration.contactPersons.edit', 'description' => 'Edit contact person', 'type' => 0, 'default' => false],
-        ['name' => 'administration.contactPersons.create', 'description' => 'Create contact person', 'type' => 0, 'default' => false],
+        ['name' => 'administration.contactPersons.edit', 'description' => 'Edit contact person', 'type' => 1, 'default' => false],
+        ['name' => 'administration.contactPersons.create', 'description' => 'Create contact person', 'type' => 1, 'default' => false],
         ['name' => 'administration.contactPersons.update', 'description' => 'Update edited contact person', 'type' => 1, 'default' => false],
         ['name' => 'administration.contactPersons.store', 'description' => 'Store newly created contact person', 'type' => 1, 'default' => false],
         ['name' => 'administration.contactPersons.destroy', 'description' => 'Delete contact person', 'type' => 1, 'default' => false],
