@@ -1,7 +1,7 @@
 {
     "name": "laravel-enso/contactpersons",
-    "description": "Contact Persons plugin for Larave Enso",
-    "type": "plugin",
+    "description": "Contact Persons dependency for Larave Enso",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -9,12 +9,12 @@
             "email": "mihai.ocneanu@gmail.com"
         },
         {
-            "name": "mishu",
+            "name": "Mishu",
             "email": "mishu@xtelecom.ro"
         }
     ],
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1.0",
         "laravel/framework": "5.4.*",
         "laravel-enso/core": "1.1.*"
     },

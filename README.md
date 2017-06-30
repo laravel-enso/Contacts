@@ -4,9 +4,11 @@
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contactpersons/downloads)](https://packagist.org/packages/laravel-enso/contactpersons)
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/contactpersons/version)](https://packagist.org/packages/laravel-enso/contactpersons)
 
-Contact Persons plugin for Laravel Enso
+Contact Persons dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 
-### Instalation Steps
+![Screenshot](https://laravel-enso.github.io/contactpersons/screenshots/Selection_024.png)
+
+### Instalation steps
 
 1. Add `LaravelEnso\ContactPersons\ContactPersonsServiceProvider::class` to `config/app.php`.
 
@@ -14,13 +16,14 @@ Contact Persons plugin for Laravel Enso
 
 3. Add the following relationship to the Owner model
 
-```php
-public function contact_persons()
-{
-    return $this->hasMany('LaravelEnso\ContactPersons\app\Models\ContactPerson');
-}
-```
+    ```php
+    public function contact_persons()
+    {
+        return $this->hasMany('LaravelEnso\ContactPersons\app\Models\ContactPerson');
+    }
+    ```
+
 
 ### Contributions
 
-...are welcome
+are welcome
