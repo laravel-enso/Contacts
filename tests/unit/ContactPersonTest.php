@@ -1,5 +1,6 @@
 <?php
 
+use App\Owner;
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -10,7 +11,6 @@ class ContactPersonTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $user;
     private $faker;
 
     protected function setUp()
@@ -18,15 +18,15 @@ class ContactPersonTest extends TestCase
         parent::setUp();
 
         // $this->disableExceptionHandling();
-        $this->user = User::first();
         $this->faker = Factory::create();
-        $this->actingAs($this->user);
+        $this->actingAs(User::first());
     }
 
     /** @test */
     public function index()
     {
         $response = $this->get('/administration/contactPersons');
+
         $response->assertStatus(200);
     }
 
@@ -34,25 +34,32 @@ class ContactPersonTest extends TestCase
     public function create()
     {
         $response = $this->get('/administration/contactPersons/create');
+
         $response->assertStatus(200);
     }
 
     /** @test */
     public function store()
     {
-        $response = $this->post('/administration/contactPersons', $this->postParams());
-        $contactPerson = ContactPerson::first(['id']);
+        $postParams = $this->postParams();
+        $response = $this->post('/administration/contactPersons', $postParams);
+        $contactPerson = ContactPerson::whereFirstName($postParams['first_name'])->first(['id']);
+
         $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id.'/edit');
+
         $this->hasSessionConfirmation($response);
-        $this->assertTrue($this->wasCreated());
+        $this->assertTrue(ContactPerson::whereFirstName($postParams['first_name'])->count() === 1);
     }
 
     /** @test */
     public function edit()
     {
-        ContactPerson::create($this->postParams());
-        $contactPerson = ContactPerson::first();
+        $postParams = $this->postParams();
+        ContactPerson::create($postParams);
+        $contactPerson = ContactPerson::whereFirstName($postParams['first_name'])->first();
+
         $response = $this->get('/administration/contactPersons/'.$contactPerson->id.'/edit');
+
         $response->assertStatus(200);
         $response->assertViewHas('contactPerson', $contactPerson);
     }
@@ -60,36 +67,31 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function update()
     {
-        ContactPerson::create($this->postParams());
-        $contactPerson = ContactPerson::first();
+        $postParams = $this->postParams();
+        ContactPerson::create($postParams);
+        $contactPerson = ContactPerson::whereFirstName($postParams['first_name'])->first();
         $contactPerson['first_name'] = 'edited';
         $contactPerson['_method'] = 'PATCH';
+
         $response = $this->patch('/administration/contactPersons/'.$contactPerson->id, $contactPerson->toArray());
+
         $response->assertStatus(302);
         $this->hasSessionConfirmation($response);
-        $this->assertTrue($this->wasUpdated());
+        $this->assertTrue(ContactPerson::whereFirstName('edited')->count() === 1);
     }
 
     /** @test */
     public function destroy()
     {
-        ContactPerson::create($this->postParams());
-        $contactPerson = ContactPerson::first(['id']);
+        $postParams = $this->postParams();
+        ContactPerson::create($postParams);
+        $contactPerson = ContactPerson::whereFirstName($postParams['first_name'])->first(['id']);
+
         $response = $this->delete('/administration/contactPersons/'.$contactPerson->id);
+
         $this->hasJsonConfirmation($response);
+        $this->assertTrue(ContactPerson::whereFirstName($postParams['first_name'])->count() === 0);
         $response->assertStatus(200);
-    }
-
-    private function wasCreated()
-    {
-        return ContactPerson::count() === 1;
-    }
-
-    private function wasUpdated()
-    {
-        $contactPerson = ContactPerson::first(['first_name']);
-
-        return $contactPerson->first_name === 'edited';
     }
 
     private function hasJsonConfirmation($response)
@@ -105,7 +107,7 @@ class ContactPersonTest extends TestCase
     private function postParams()
     {
         return [
-            'owner_id'   => 1,
+            'owner_id'   => Owner::first(['id'])->id,
             'first_name' => $this->faker->firstName,
             'last_name'  => $this->faker->lastName,
             'phone'      => $this->faker->phoneNumber,
