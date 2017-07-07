@@ -1,3 +1,4 @@
+<!--h--> 
 # Contact Persons
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c859dad259f4455a21c7f22d2877917)](https://www.codacy.com/app/mihai-ocneanu/contact-persons?utm_source=github.com&utm_medium=referral&utm_content=laravel-enso/contact-persons&utm_campaign=badger)
@@ -5,12 +6,13 @@
 [![License](https://poser.pugx.org/laravel-enso/contactpersons/license)](https://https://packagist.org/packages/laravel-enso/contactpersons)
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contactpersons/downloads)](https://packagist.org/packages/laravel-enso/contactpersons)
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/contactpersons/version)](https://packagist.org/packages/laravel-enso/contactpersons)
+<!--/h-->
 
 Contact Persons dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 
 ![Screenshot](https://laravel-enso.github.io/contactpersons/screenshots/Selection_024.png)
 
-### Instalation steps
+### Installation steps
 
 1. Add `LaravelEnso\ContactPersons\ContactPersonsServiceProvider::class` to `config/app.php`.
 
@@ -26,6 +28,12 @@ Contact Persons dependency for [Laravel Enso](https://github.com/laravel-enso/En
     ```
 
 
+<!--h-->
 ### Contributions
 
-are welcome
+are welcome. Pull requests are great, but issues are good too.
+
+### License
+
+This package is released under the MIT license.
+<!--/h-->
