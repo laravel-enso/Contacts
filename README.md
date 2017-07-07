@@ -1,4 +1,4 @@
-<!--h--> 
+<!--h-->
 # Contact Persons
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c859dad259f4455a21c7f22d2877917)](https://www.codacy.com/app/mihai-ocneanu/contact-persons?utm_source=github.com&utm_medium=referral&utm_content=laravel-enso/contact-persons&utm_campaign=badger)
@@ -10,7 +10,7 @@
 
 Contact Persons dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 
-![Screenshot](https://laravel-enso.github.io/contactpersons/screenshots/Selection_024.png)
+[![Screenshot](https://laravel-enso.github.io/contactpersons/screenshots/Selection_024_thumb.png)](https://laravel-enso.github.io/contactpersons/screenshots/Selection_024.png)
 
 ### Installation steps
 
