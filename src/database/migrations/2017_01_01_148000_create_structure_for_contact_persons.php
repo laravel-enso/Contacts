@@ -17,6 +17,7 @@ class CreateStructureForContactPersons extends StructureMigration
         ['name' => 'administration.contactPersons.destroy', 'description' => 'Delete contact person', 'type' => 1, 'default' => false],
         ['name' => 'administration.contactPersons.initTable', 'description' => 'Init table for contact persons', 'type' => 0, 'default' => false],
         ['name' => 'administration.contactPersons.getTableData', 'description' => 'Get table data for contact persons', 'type' => 0, 'default' => false],
+        ['name' => 'administration.contactPersons.exportExcel', 'description' => 'Export excel for contact persons', 'type' => 0, 'default' => false],
     ];
 
     protected $menu = [

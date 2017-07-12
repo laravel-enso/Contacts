@@ -1,16 +1,26 @@
 {
     "name": "laravel-enso/contactpersons",
     "description": "Contact Persons dependency for Larave Enso",
+    "keywords": [
+        "laravel-enso",
+        "contactpersons",
+        "contact-persons"
+    ],
+    "homepage": "https://github.com/laravel-enso/ContactPersons",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Mihai Ocneanu",
-            "email": "mihai.ocneanu@gmail.com"
+            "email": "mihai.ocneanu@gmail.com",
+            "homepage": "https://laravel-enso.com",
+            "role": "Developer"
         },
         {
-            "name": "Mishu",
-            "email": "mishu@xtelecom.ro"
+            "name": "Adrian Ocneanu",
+            "email": "aocneanu@gmail.com",
+            "homepage": "https://laravel-enso.com",
+            "role": "Developer"
         }
     ],
     "require": {
@@ -21,6 +31,14 @@
     "autoload": {
         "psr-4": {
             "LaravelEnso\\ContactPersons\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelEnso\\ContactPersons\\ContactPersonsServiceProvider"
+            ],
+            "aliases": {}
         }
     }
 }
