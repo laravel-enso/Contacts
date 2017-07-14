@@ -16,7 +16,7 @@ class CreateContactPersonsTable extends Migration
             $table->string('last_name');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }

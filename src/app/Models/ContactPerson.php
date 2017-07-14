@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactPerson extends Model
 {
-    protected $table = 'contact_persons';
+    protected $table = 'contact_persons'; //fixme => contacts
 
     protected $fillable = ['owner_id', 'first_name', 'last_name', 'phone', 'email', 'is_active'];
+
+    protected $attribute = ['is_active' => false];
 
     public function owner()
     {
