@@ -14,7 +14,7 @@ class ContactPersonsTableStructure extends TableStructure
             'actionButtons' => __('Actions'),
             'headerAlign'   => 'center',
             'bodyAlign'     => 'center',
-            'tableName' => __("Contact Persons"),
+            'tableName'     => __('Contact Persons'),
             'enumMappings'  => [
                 'is_active' => IsActiveEnum::class,
             ],
