@@ -29,11 +29,11 @@ class ContactPersonController extends Controller
         return view('laravel-enso/contactpersons::index');
     }
 
-    public function create()
+    public function create(ContactPerson $contactPerson)
     {
         $statuses = (new IsActiveEnum())->getData();
 
-        return view('laravel-enso/contactpersons::create', compact('statuses'));
+        return view('laravel-enso/contactpersons::create', compact('statuses', 'contactPerson'));
     }
 
     public function store(ValidateContactPersonRequest $request, ContactPerson $contactPerson)
