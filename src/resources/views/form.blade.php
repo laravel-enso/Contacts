@@ -24,7 +24,7 @@
         </small>
         <vue-select source="/administration/owners/getOptionsList"
             name="owner_id"
-            selected="{{ $contactPerson->owner_id or 0 }}">
+            selected="{{ request()->old('owner_id') ?: ($contactPerson->owner_id or 0) }}">
         </vue-select>
     </div>
 </div>

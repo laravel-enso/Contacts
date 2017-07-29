@@ -13,9 +13,8 @@
     <section class="content">
         <div class="row" v-cloak>
             <div class="col-md-12">
-                <data-table source="/administration/contactPersons">
-                    <span slot="data-table-title">{{ __("Contact Persons") }}</span>
-                    @include('laravel-enso/core::partials.modal')
+                <data-table source="/administration/contactPersons"
+                    id="contacts">
                 </data-table>
             </div>
         </div>
