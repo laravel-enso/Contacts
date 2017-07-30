@@ -26,7 +26,7 @@ class ContactsController extends Controller
         $contact = $contact->create($request->all());
         flash()->success(__('The contact person was added!'));
 
-        return redirect('administration/contacts/' . $contact->id . '/edit');
+        return redirect('administration/contacts/'.$contact->id.'/edit');
     }
 
     public function edit(Contact $contact)
