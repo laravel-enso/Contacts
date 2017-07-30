@@ -1,12 +1,11 @@
 {
-    "name": "laravel-enso/contactpersons",
-    "description": "Contact Persons dependency for Larave Enso",
+    "name": "laravel-enso/contacts",
+    "description": "Contacts dependency for Larave Enso",
     "keywords": [
         "laravel-enso",
-        "contactpersons",
-        "contact-persons"
+        "contacts"
     ],
-    "homepage": "https://github.com/laravel-enso/ContactPersons",
+    "homepage": "https://github.com/laravel-enso/Contacts",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -30,13 +29,13 @@
     },
     "autoload": {
         "psr-4": {
-            "LaravelEnso\\ContactPersons\\": "src/"
+            "LaravelEnso\\Contacts\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelEnso\\ContactPersons\\ContactPersonsServiceProvider"
+                "LaravelEnso\\Contacts\\ContactsServiceProvider"
             ],
             "aliases": {}
         }

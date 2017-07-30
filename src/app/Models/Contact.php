@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\ContactPersons\app\Models;
+namespace LaravelEnso\Contacts\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ContactPerson extends Model
+class Contact extends Model
 {
     protected $table = 'contact_persons'; //fixme => contacts
 

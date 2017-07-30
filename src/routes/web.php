@@ -1,20 +1,20 @@
 <?php
 
 Route::middleware(['web', 'auth', 'core'])
-    ->namespace('LaravelEnso\ContactPersons\app\Http\Controllers')
+    ->namespace('LaravelEnso\Contacts\app\Http\Controllers')
     ->group(function () {
-        Route::prefix('administration/contactPersons')->as('administration.contactPersons.')
+        Route::prefix('administration/contacts')->as('administration.contacts.')
             ->group(function () {
-                Route::get('initTable', 'ContactPersonController@initTable')
+                Route::get('initTable', 'ContactsTableController@initTable')
                     ->name('initTable');
-                Route::get('getTableData', 'ContactPersonController@getTableData')
+                Route::get('getTableData', 'ContactsTableController@getTableData')
                     ->name('getTableData');
-                Route::get('exportExcel', 'ContactPersonController@exportExcel')
+                Route::get('exportExcel', 'ContactsTableController@exportExcel')
                     ->name('exportExcel');
             });
 
         Route::prefix('administration')->as('administration.')
             ->group(function () {
-                Route::resource('contactPersons', 'ContactPersonController', ['except' => ['show']]);
+                Route::resource('contacts', 'ContactController', ['except' => ['show']]);
             });
     });

@@ -1,12 +1,12 @@
 @extends('laravel-enso/core::layouts.app')
 
-@section('pageTitle', __("Contact Persons"))
+@section('pageTitle', __("Contacts"))
 
 @section('content')
 
     <section class="content-header">
-        <a class="btn btn-primary" href="/administration/contactPersons/create">
-            {{ __("Add Contact Person") }}
+        <a class="btn btn-primary" href="/administration/contacts/create">
+            {{ __("Add Contact") }}
         </a>
         @include('laravel-enso/menumanager::breadcrumbs')
     </section>
@@ -16,7 +16,7 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <div class="box-title">
-                            {{ __("Edit Contact Person") }}
+                            {{ __("Edit Contact") }}
                         </div>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool btn-sm" data-widget="collapse">
@@ -26,9 +26,9 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        {!! Form::model($contactPerson, ['method' => 'PATCH', 'url' => '/administration/contactPersons/'.$contactPerson->id]) !!}
+                        {!! Form::model($contact, ['method' => 'PATCH', 'url' => '/administration/contacts/'.$contact->id]) !!}
                         <div class="row">
-                            @include('laravel-enso/contactpersons::form')
+                            @include('laravel-enso/contacts::form')
                         </div>
                         <center class="margin-bottom">
                             {!! Form::submit(__("Save"), ['class' => 'btn btn-primary ']) !!}

@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelEnso\ContactPersons\app\Http\Requests;
+namespace LaravelEnso\Contacts\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ValidateContactPersonRequest extends FormRequest
+class ValidateContactRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,14 +14,14 @@ class ValidateContactPersonRequest extends FormRequest
 
     public function rules()
     {
-        $contactPerson = $this->route('contactPerson');
+        $contact = $this->route('contact');
 
         $emailUnique = Rule::unique('contact_persons', 'email');
         $phoneUnique = Rule::unique('contact_persons', 'phone');
 
         if ($this->_method == 'PATCH') {
-            $emailUnique = $emailUnique->ignore($contactPerson->id);
-            $phoneUnique = $phoneUnique->ignore($contactPerson->id);
+            $emailUnique = $emailUnique->ignore($contact->id);
+            $phoneUnique = $phoneUnique->ignore($contact->id);
         }
 
         return [

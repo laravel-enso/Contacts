@@ -3,10 +3,10 @@
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelEnso\ContactPersons\app\Models\ContactPerson;
+use LaravelEnso\Contacts\app\Models\Contact;
 use Tests\TestCase;
 
-class ContactPersonTest extends TestCase
+class ContactTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -26,23 +26,23 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function index()
     {
-        $response = $this->get('/administration/contactPersons');
+        $response = $this->get('/administration/contacts');
         $response->assertStatus(200);
     }
 
     /** @test */
     public function create()
     {
-        $response = $this->get('/administration/contactPersons/create');
+        $response = $this->get('/administration/contacts/create');
         $response->assertStatus(200);
     }
 
     /** @test */
     public function store()
     {
-        $response = $this->post('/administration/contactPersons', $this->postParams());
-        $contactPerson = ContactPerson::first(['id']);
-        $response->assertRedirect('/administration/contactPersons/'.$contactPerson->id.'/edit');
+        $response = $this->post('/administration/contacts', $this->postParams());
+        $contact = Contact::first(['id']);
+        $response->assertRedirect('/administration/contacts/'.$contact->id.'/edit');
         $this->hasSessionConfirmation($response);
         $this->assertTrue($this->wasCreated());
     }
@@ -50,21 +50,21 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function edit()
     {
-        ContactPerson::create($this->postParams());
-        $contactPerson = ContactPerson::first();
-        $response = $this->get('/administration/contactPersons/'.$contactPerson->id.'/edit');
+        Contact::create($this->postParams());
+        $contact = Contact::first();
+        $response = $this->get('/administration/contacts/'.$contact->id.'/edit');
         $response->assertStatus(200);
-        $response->assertViewHas('contactPerson', $contactPerson);
+        $response->assertViewHas('contact', $contact);
     }
 
     /** @test */
     public function update()
     {
-        ContactPerson::create($this->postParams());
-        $contactPerson = ContactPerson::first();
-        $contactPerson['first_name'] = 'edited';
-        $contactPerson['_method'] = 'PATCH';
-        $response = $this->patch('/administration/contactPersons/'.$contactPerson->id, $contactPerson->toArray());
+        Contact::create($this->postParams());
+        $contact = Contact::first();
+        $contact['first_name'] = 'edited';
+        $contact['_method'] = 'PATCH';
+        $response = $this->patch('/administration/contacts/'.$contact->id, $contact->toArray());
         $response->assertStatus(302);
         $this->hasSessionConfirmation($response);
         $this->assertTrue($this->wasUpdated());
@@ -73,23 +73,23 @@ class ContactPersonTest extends TestCase
     /** @test */
     public function destroy()
     {
-        ContactPerson::create($this->postParams());
-        $contactPerson = ContactPerson::first(['id']);
-        $response = $this->delete('/administration/contactPersons/'.$contactPerson->id);
+        Contact::create($this->postParams());
+        $contact = Contact::first(['id']);
+        $response = $this->delete('/administration/contacts/'.$contact->id);
         $this->hasJsonConfirmation($response);
         $response->assertStatus(200);
     }
 
     private function wasCreated()
     {
-        return ContactPerson::count() === 1;
+        return Contact::count() === 1;
     }
 
     private function wasUpdated()
     {
-        $contactPerson = ContactPerson::first(['first_name']);
+        $contact = Contact::first(['first_name']);
 
-        return $contactPerson->first_name === 'edited';
+        return $contact->first_name === 'edited';
     }
 
     private function hasJsonConfirmation($response)
