@@ -7,17 +7,21 @@ use LaravelEnso\Contacts\app\DataTable\ContactsTableStructure;
 use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\DataTable\app\Traits\DataTable;
 
-class ContactsTableController extends Controller
+class ContactTableController extends Controller
 {
     use DataTable;
 
     protected $tableStructureClass = ContactsTableStructure::class;
 
+    public function index()
+    {
+    	return view('laravel-enso/contacts::index');
+    }
+
     private function getTableQuery()
     {
-        return Contact::select(\DB::raw('contact_persons.id as DT_RowId,
-            contact_persons.first_name, contact_persons.last_name, contact_persons.phone,
-            contact_persons.email, owners.name as owner_name, contact_persons.is_active'))
-            ->join('owners', 'owners.id', '=', 'contact_persons.owner_id');
+        return Contact::select(\DB::raw('id as DT_RowId,
+            first_name, last_name, phone,
+            email, owner, is_active'));
     }
 }

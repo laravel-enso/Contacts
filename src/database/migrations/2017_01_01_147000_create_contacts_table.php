@@ -10,19 +10,21 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id')->unsigned()->index()->nullable();
-            $table->foreign('owner_id')->references('id')->on('owners')->onUpdate('restrict')->onDelete('restrict');
+            $table->morphs('contactable');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('owner')->nullable();
             $table->boolean('is_active');
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('contact_persons');
+        Schema::dropIfExists('contacts');
     }
 }

@@ -3,22 +3,19 @@
 namespace LaravelEnso\Contacts\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use LaravelEnso\Helpers\Traits\IsActiveTrait;
+use LaravelEnso\TrackWho\app\Traits\CreatedBy;
 
 class Contact extends Model
 {
-    protected $table = 'contact_persons'; //fixme => contacts
+    use IsActiveTrait, CreatedBy;
 
-    protected $fillable = ['owner_id', 'first_name', 'last_name', 'phone', 'email', 'is_active'];
+    protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'is_active'];
 
-    protected $attribute = ['is_active' => false];
+    protected $attributes = ['is_active' => false];
 
-    public function owner()
+    public function contactable()
     {
-        return $this->belongsTo('LaravelEnso\Core\app\Models\Owner');
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->whereIsActive(true);
+        return $this->morphTo();
     }
 }

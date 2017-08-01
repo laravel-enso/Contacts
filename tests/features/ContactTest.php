@@ -17,7 +17,7 @@ class ContactTest extends TestCase
     {
         parent::setUp();
 
-        // $this->disableExceptionHandling();
+        $this->disableExceptionHandling();
         $this->user = User::first();
         $this->faker = Factory::create();
         $this->actingAs($this->user);

@@ -14,20 +14,17 @@ class ValidateContactRequest extends FormRequest
 
     public function rules()
     {
-        $contact = $this->route('contact');
+        $emailUnique = Rule::unique('contacts', 'email');
+        $phoneUnique = Rule::unique('contacts', 'phone');
 
-        $emailUnique = Rule::unique('contact_persons', 'email');
-        $phoneUnique = Rule::unique('contact_persons', 'phone');
-
-        if ($this->_method == 'PATCH') {
-            $emailUnique = $emailUnique->ignore($contact->id);
-            $phoneUnique = $phoneUnique->ignore($contact->id);
+        if (request()->getMethod() == 'PATCH') {
+            $emailUnique = $emailUnique->ignore(request()->get('contact')['id']);
+            $phoneUnique = $phoneUnique->ignore(request()->get('contact')['id']);
         }
 
         return [
             'first_name' => 'required|max:50',
             'last_name'  => 'required|max:50',
-            'owner_id'   => 'required|numeric|exists:owners,id',
             'email'      => [
                 'email',
                 'required',
@@ -36,8 +33,7 @@ class ValidateContactRequest extends FormRequest
             'phone'      => [
                 'required',
                 $phoneUnique,
-            ],
-            'is_active' => 'required|in:0,1',
+            ]
         ];
     }
 }
