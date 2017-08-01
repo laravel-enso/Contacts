@@ -4,10 +4,9 @@ namespace LaravelEnso\Contacts\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use LaravelEnso\Contacts\App\Http\Services\ContactService;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
+use LaravelEnso\Contacts\App\Http\Services\ContactService;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\Core\app\Enums\IsActiveEnum;
 
 class ContactController extends Controller
 {
@@ -28,7 +27,7 @@ class ContactController extends Controller
         $validator = $this->validateRequest();
 
         if ($validator->fails()) {
-            throw new \EnsoException("The form has errors", 'error', $validator->errors()->toArray());
+            throw new \EnsoException('The form has errors', 'error', $validator->errors()->toArray());
         }
 
         return $this->contacts->store();
@@ -39,7 +38,7 @@ class ContactController extends Controller
         $validator = $this->validateRequest();
 
         if ($validator->fails()) {
-            throw new \EnsoException("The form has errors", 'error', $validator->errors()->toArray());
+            throw new \EnsoException('The form has errors', 'error', $validator->errors()->toArray());
         }
 
         return $this->contacts->update($contact);
@@ -52,7 +51,7 @@ class ContactController extends Controller
 
     private function validateRequest()
     {
-        $rules = (new ValidateContactRequest)->rules();
+        $rules = (new ValidateContactRequest())->rules();
         $validator = \Validator::make(request()->get('contact'), $rules);
 
         return $validator;

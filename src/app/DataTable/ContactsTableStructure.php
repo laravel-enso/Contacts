@@ -10,11 +10,11 @@ class ContactsTableStructure extends TableStructure
     public function __construct()
     {
         $this->data = [
-            'tableName'     => __('Contacts'),
-            'crtNo'         => __('#'),
-            'actionButtons' => __('Actions'),
+            'tableName'               => __('Contacts'),
+            'crtNo'                   => __('#'),
+            'actionButtons'           => __('Actions'),
             'customActionButtons'     => [
-                [ 'class' => 'btn-warning fa fa-pencil-square-o', 'event'=>'edit-contact', 'route' => 'core.contacts.update' ]
+                ['class' => 'btn-warning fa fa-pencil-square-o', 'event'=>'edit-contact', 'route' => 'core.contacts.update'],
             ],
             'headerAlign'   => 'center',
             'bodyAlign'     => 'center',

@@ -15,7 +15,7 @@ class ContactTableController extends Controller
 
     public function index()
     {
-    	return view('laravel-enso/contacts::index');
+        return view('laravel-enso/contacts::index');
     }
 
     private function getTableQuery()

@@ -50,11 +50,11 @@ class ContactService
 
     private function getContactableClass()
     {
-        $class = config('contacts.contactables.' . $this->request['type']);
+        $class = config('contacts.contactables.'.$this->request['type']);
 
         if (!$class) {
             throw new \EnsoException(
-                __('Current entity does not exist in contacts.php config file: ') . $this->request['type']
+                __('Current entity does not exist in contacts.php config file: ').$this->request['type']
             );
         }
 
