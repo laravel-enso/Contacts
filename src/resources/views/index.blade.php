@@ -5,9 +5,6 @@
 @section('content')
 
     <section class="content-header">
-        <a class="btn btn-primary" href="/administration/contacts/create">
-            {{ __("Add Contact") }}
-        </a>
         @include('laravel-enso/menumanager::breadcrumbs')
     </section>
     <section class="content">
