@@ -48,6 +48,11 @@ class ContactsTableStructure extends TableStructure
                     'name'  => 'contacts.email',
                 ],
                 5 => [
+                    'label' => __('Observations'),
+                    'data'  => 'obs',
+                    'name'  => 'contacts.obs',
+                ],
+                6 => [
                     'label' => __('Active'),
                     'data'  => 'is_active',
                     'name'  => 'contacts.is_active',

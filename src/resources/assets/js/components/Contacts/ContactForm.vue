@@ -48,6 +48,15 @@
                     class="form-control text-center margin-bottom-xs"
                     v-model="contact.phone">
             </div>
+            <div class="form-group" :class="{'has-error' : errors.obs}">
+                <label>{{ labels.obs }}</label>
+                <small class="text-danger" style="float:right;">
+                    {{ errors.obs ? errors.obs[0] : null }}
+                </small>
+                <input type="text"
+                    class="form-control text-center margin-bottom-xs"
+                    v-model="contact.obs">
+            </div>
             <div class="form-group text-center">
                 <input type="checkbox" v-model="contact.is_active">
                 <label>{{ labels.isActive }}</label>

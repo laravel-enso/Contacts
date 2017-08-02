@@ -33,7 +33,7 @@ class ValidateContactRequest extends FormRequest
             'phone'      => [
                 'required',
                 $phoneUnique,
-            ],
+            ]
         ];
     }
 }

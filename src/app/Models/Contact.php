@@ -10,7 +10,7 @@ class Contact extends Model
 {
     use IsActiveTrait, CreatedBy;
 
-    protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'is_active'];
+    protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'obs', 'is_active'];
 
     protected $attributes = ['is_active' => false];
 

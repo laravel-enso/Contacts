@@ -8,6 +8,7 @@
                     {{ contact.owner }} <br>
                     <i class="fa fa-envelope"></i> {{ contact.email }} <br>
                     <i class="fa fa-phone"></i> {{ contact.phone }} <br>
+                    <i class="fa fa-sticky-note "></i> {{ contact.obs }} <br>
                 </address>
             </div>
             <div class="icon">
