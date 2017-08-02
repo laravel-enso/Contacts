@@ -110,7 +110,7 @@
             get() {
                 this.loading = true;
 
-                axios.get('/core/contacts', { params: { id: this.id, type: this.type } }).then(response => {
+                axios.get('/core/contacts/list', { params: { id: this.id, type: this.type } }).then(response => {
                     this.contacts = response.data;
                     this.loading = false;
                 }).catch(error => {
