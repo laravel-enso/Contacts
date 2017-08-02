@@ -56,7 +56,7 @@
                     this.contact.last_name = contact.last_name;
                     this.contact.email = contact.email;
                     this.contact.phone = contact.phone;
-                    this.contact.is_active = contact.is_active;
+                    this.contact.is_active = contact.is_active_bool;
                 },
                 update() {
                     this.showForm = false;
