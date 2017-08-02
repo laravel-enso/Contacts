@@ -1,117 +1,110 @@
 <?php
 
+use App\Owner;
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelEnso\Contacts\app\Models\Contact;
-use Tests\TestCase;
+use LaravelEnso\TestHelper\app\Classes\TestHelper;
 
-class ContactTest extends TestCase
+class ContactTest extends TestHelper
 {
     use DatabaseMigrations;
 
-    private $user;
+    private $owner;
     private $faker;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->disableExceptionHandling();
-        $this->user = User::first();
+        // $this->disableExceptionHandling();
+        $this->owner = Owner::first();
         $this->faker = Factory::create();
-        $this->actingAs($this->user);
+        $this->signIn(User::first());
     }
 
     /** @test */
     public function index()
     {
-        $response = $this->get('/administration/contacts');
+        $response = $this->get('/core/contacts');
+
         $response->assertStatus(200);
+        $response->assertViewIs('laravel-enso/contacts::index');
     }
 
     /** @test */
-    public function create()
+    public function list()
     {
-        $response = $this->get('/administration/contacts/create');
+        $contact = $this->createContact();
+
+        $response = $this->call( 'GET', '/core/contacts/list/', [
+            'id' => $this->owner->id,
+            'type' => 'owner'
+            ]);
+
         $response->assertStatus(200);
+        $response->assertJson([$contact->toArray()]);
     }
 
     /** @test */
     public function store()
     {
-        $response = $this->post('/administration/contacts', $this->postParams());
-        $contact = Contact::first(['id']);
-        $response->assertRedirect('/administration/contacts/'.$contact->id.'/edit');
-        $this->hasSessionConfirmation($response);
-        $this->assertTrue($this->wasCreated());
-    }
+        $postParams = $this->postParams();
 
-    /** @test */
-    public function edit()
-    {
-        Contact::create($this->postParams());
-        $contact = Contact::first();
-        $response = $this->get('/administration/contacts/'.$contact->id.'/edit');
+        $response = $this->post('/core/contacts', $postParams);
+
         $response->assertStatus(200);
-        $response->assertViewHas('contact', $contact);
+        $this->assertNotNull(Contact::whereFirstName($postParams['contact']['first_name'])->first());
     }
 
     /** @test */
     public function update()
     {
-        Contact::create($this->postParams());
-        $contact = Contact::first();
+        $contact = $this->createContact();
         $contact['first_name'] = 'edited';
-        $contact['_method'] = 'PATCH';
-        $response = $this->patch('/administration/contacts/'.$contact->id, $contact->toArray());
-        $response->assertStatus(302);
-        $this->hasSessionConfirmation($response);
-        $this->assertTrue($this->wasUpdated());
+
+        $response = $this->patch('/core/contacts/'.$contact->id, ['contact' => $contact->toArray()]);
+
+        $response->assertStatus(200);
+        $this->assertTrue($contact->fresh()->first_name === 'edited');
     }
 
     /** @test */
     public function destroy()
     {
-        Contact::create($this->postParams());
-        $contact = Contact::first(['id']);
-        $response = $this->delete('/administration/contacts/'.$contact->id);
-        $this->hasJsonConfirmation($response);
+        $contact = $this->createContact();
+
+        $response = $this->delete('/core/contacts/'.$contact->id);
+
         $response->assertStatus(200);
+        $response->assertJsonFragment(['message']);
+        $this->assertNull($contact->fresh());
     }
 
-    private function wasCreated()
+    private function createContact()
     {
-        return Contact::count() === 1;
-    }
+        $data = $this->postParams();
+        $contact = new Contact($data['contact']);
+        $contact->contactable_id = $this->owner->id;
+        $contact->contactable_type = 'App\Owner';
+        $contact->save();
 
-    private function wasUpdated()
-    {
-        $contact = Contact::first(['first_name']);
-
-        return $contact->first_name === 'edited';
-    }
-
-    private function hasJsonConfirmation($response)
-    {
-        return $response->assertJsonFragment(['message']);
-    }
-
-    private function hasSessionConfirmation($response)
-    {
-        return $response->assertSessionHas('flash_notification');
+        return $contact;
     }
 
     private function postParams()
     {
-        return [
-            'owner_id'   => 1,
-            'first_name' => $this->faker->firstName,
-            'last_name'  => $this->faker->lastName,
-            'phone'      => $this->faker->phoneNumber,
-            'email'      => $this->faker->email,
-            'is_active'  => 1,
-            '_method'    => 'POST',
+         return [
+            'type' => 'owner',
+            'id' =>$this->owner->id,
+            'contact' => [
+                'first_name' => $this->faker->firstName,
+                'last_name'  => $this->faker->lastName,
+                'phone'      => $this->faker->phoneNumber,
+                'email'      => $this->faker->email,
+                'is_active'  => 1,
+            ]
         ];
     }
 }
