@@ -19,7 +19,12 @@ class ContactController extends Controller
 
     public function index()
     {
-        return $this->contacts->index();
+        return view('laravel-enso/contacts::index');
+    }
+
+    public function list()
+    {
+        return $this->contacts->list();
     }
 
     public function store()

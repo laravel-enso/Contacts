@@ -13,11 +13,6 @@ class ContactTableController extends Controller
 
     protected $tableStructureClass = ContactsTableStructure::class;
 
-    public function index()
-    {
-        return view('laravel-enso/contacts::index');
-    }
-
     private function getTableQuery()
     {
         return Contact::select(\DB::raw('id as DT_RowId,

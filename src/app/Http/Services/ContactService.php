@@ -14,7 +14,7 @@ class ContactService
         $this->request = $request;
     }
 
-    public function index()
+    public function list()
     {
         $contactable = $this->getContactable();
 
