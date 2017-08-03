@@ -38,9 +38,9 @@ class ContactTest extends TestHelper
     {
         $contact = $this->createContact();
 
-        $response = $this->call( 'GET', '/core/contacts/list/', [
-            'id' => $this->owner->id,
-            'type' => 'owner'
+        $response = $this->call('GET', '/core/contacts/list/', [
+            'id'   => $this->owner->id,
+            'type' => 'owner',
             ]);
 
         $response->assertStatus(200);
@@ -95,16 +95,16 @@ class ContactTest extends TestHelper
 
     private function postParams()
     {
-         return [
-            'type' => 'owner',
-            'id' =>$this->owner->id,
+        return [
+            'type'    => 'owner',
+            'id'      => $this->owner->id,
             'contact' => [
                 'first_name' => $this->faker->firstName,
                 'last_name'  => $this->faker->lastName,
                 'phone'      => $this->faker->phoneNumber,
                 'email'      => $this->faker->email,
                 'is_active'  => 1,
-            ]
+            ],
         ];
     }
 }
