@@ -1,6 +1,6 @@
 <template>
 
-    <div :class="'box collapsed-box box-' + headerClass">
+    <div class="box" :class="['box-' + headerClass, open ? '': 'collapsed-box']">
         <div class="box-header with-border">
             <i class="fa fa-address-card-o"></i>
             <h3 class="box-title">
@@ -28,7 +28,7 @@
                 </button>
                 <button class="btn btn-box-tool btn-sm"
                     data-widget="collapse">
-                    <i class="fa fa-plus"></i>
+                    <i :class="['fa', open ? 'fa-minus' : 'fa-plus']"></i>
                 </button>
             </div>
         </div>
@@ -78,6 +78,10 @@
             headerClass: {
                 type: String,
                 default: 'primary'
+            },
+            open: {
+                type: Boolean,
+                default: false
             }
         },
 
@@ -89,7 +93,7 @@
                             || contact.last_name.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
                     })
                     : this.contacts;
-            }
+            },
         },
 
         data() {
