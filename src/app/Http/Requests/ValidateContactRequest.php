@@ -27,11 +27,11 @@ class ValidateContactRequest extends FormRequest
             'last_name'  => 'required|max:50',
             'email'      => [
                 'email',
-                'required',
+                'nullable',
                 $emailUnique,
             ],
             'phone'      => [
-                'required',
+                'nullable',
                 $phoneUnique,
             ],
         ];
