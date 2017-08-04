@@ -49,7 +49,7 @@
                     v-model="contact.phone">
             </div>
             <div class="form-group" :class="{'has-error' : errors.obs}">
-                <label>{{ labels.obs }}</label>
+                <label>{{ labels.observations }}</label>
                 <small class="text-danger" style="float:right;">
                     {{ errors.obs ? errors.obs[0] : null }}
                 </small>
@@ -77,10 +77,6 @@
             id: {
                 default: null
             },
-            editMode: {
-                type: Boolean,
-                default: false
-            },
             type: {
                 type: String,
                 default: ""
@@ -90,20 +86,27 @@
                 required: true
             }
         },
+
+        computed: {
+            editMode() {
+                return this.contact.id ? true : false;
+            }
+        },
+
         data() {
             return {
-                showModal: this.show,
                 errors: {},
                 labels: Store.labels
             };
         },
+
         methods: {
             save() {
                 return this.editMode ? this.update() : this.store();
             },
             store() {
                 axios.post('/core/contacts', {contact: this.contact, id: this.id, type: this.type}).then(response => {
-                    this.$emit('stored', response.data);
+                    this.$emit('store', response.data);
                 }).catch(error => {
                     this.reportEnsoException(error);
                     if (error.response.data.errorBag) {
@@ -113,7 +116,7 @@
             },
             update(index) {
                 axios.patch('/core/contacts/' + this.contact.id, {contact: this.contact, id: this.id, type: this.type}).then(response => {
-                    this.$emit('updated');
+                    this.$emit('update', this.contact);
                 }).catch(error => {
                     this.reportEnsoException(error);
                     if (error.response.data.errorBag) {

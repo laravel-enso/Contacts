@@ -1,65 +1,43 @@
 <template>
 
-    <div class="box" :class="['box-' + headerClass, open ? '': 'collapsed-box']">
-        <div class="box-header with-border">
-            <i class="fa fa-address-card-o"></i>
-            <h3 class="box-title">
-                {{ labels.contacts }}
-            </h3>
-             <div class="box-tools pull-right">
-                <i v-if="contacts.length > 1"
-                    class="fa fa-search">
-                </i>
-                <input type="text"
-                    size="15"
-                    class="contacts-filter margin-right-xs"
-                    v-model="query"
-                    v-if="contacts.length > 1">
-                <button class="btn btn-box-tool btn-sm fa fa-plus-square"
-                    @click="showForm = true">
-                </button>
-                <span class="badge bg-orange">
-                    {{ contacts.length }}
-                </span>
-                <button type="button"
-                    class="btn btn-box-tool btn-sm"
-                    @click="get()">
-                    <i class="fa fa-refresh"></i>
-                </button>
-                <button class="btn btn-box-tool btn-sm"
-                    data-widget="collapse">
-                    <i :class="['fa', open ? 'fa-minus' : 'fa-plus']"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body contacts">
-            <div class="row">
-                <div v-for="(contact, index) in filteredContacts">
+    <box :theme="theme"
+        collapsible refresh search removable
+        :solid="solid"
+        max-height="415px"
+        :open="open"
+        @refresh="get()"
+        icon="fa fa-address-card-o"
+        :title="title || labels.contacts"
+        :overlay="loading"
+        @query-update="query = $event"
+        :badge="contacts.length">
+        <span slot="btn-box-tool">
+            <button class="btn btn-box-tool btn-sm fa fa-plus-square"
+                @click="showForm=true">
+            </button>
+        </span>
+        <div class="contacts">
+            <div v-for="(contact, index) in filteredContacts">
+                <div class="col-sm-6 col-lg-4">
                     <contact :contact="contact"
-                        @delete="idToBeDeleted=$event;showModal=true"
-                        @edit="edit($event)">
+                        @delete="destroy($event)"
+                        @edit="edit($event)"
+                        :index="index"
+                        :type="type"
+                        :id="id">
                     </contact>
                 </div>
             </div>
         </div>
-        <div class="overlay" v-if="loading">
-            <i class="fa fa-spinner fa-spin spinner-custom" ></i>
-        </div>
-        <modal :show="showModal"
-            @cancel-action="showModal=false;idToBeDeleted=null"
-            @commit-action="destroy()">
-        </modal>
         <contact-form :show="showForm"
             v-if="showForm"
-            :edit-mode="editMode"
-            :contact="selectedContact"
+            :contact="emptyContact()"
             :type="type"
             :id="id"
-            @closed="showForm=false;selectedContact={};editMode=false"
-            @updated="update()"
-            @stored="store($event)">
+            @closed="showForm=false"
+            @store="add($event);showForm=false">
         </contact-form>
-    </div>
+    </box>
 
 </template>
 
@@ -75,13 +53,21 @@
                 type: String,
                 required: true
             },
-            headerClass: {
+            theme: {
                 type: String,
                 default: 'primary'
+            },
+            solid: {
+                type: Boolean,
+                default: false,
             },
             open: {
                 type: Boolean,
                 default: false
+            },
+            title: {
+                type: String,
+                default: null
             }
         },
 
@@ -102,11 +88,7 @@
                 loading: false,
                 query: '',
                 contacts: [],
-                selectedContact: {},
-                showModal: false,
-                showForm: false,
-                editMode: false,
-                idToBeDeleted: null
+                showForm: false
             };
         },
 
@@ -122,45 +104,20 @@
                     this.reportEnsoException(error);
                 });
             },
-            edit(contact) {
-                this.editMode=true;
-                Object.assign(this.selectedContact,contact);
-                this.showForm = true;
+            emptyContact() {
+                return {
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    phone: "",
+                    obs: ""
+                };
             },
-            store(contact) {
+            add(contact) {
                 this.contacts.push(contact);
-                this.showForm = false;
-                this.selectedContact = {};
             },
-            update() {
-                let self = this,
-                    contact = this.contacts.find(function(contact) {
-                        return contact.id === self.selectedContact.id;
-                    })
-
-                Object.assign(contact, this.selectedContact);
-                this.selectedContact = {};
-                this.editMode = false;
-                this.showForm = false;
-            },
-            destroy() {
-                this.showModal = false;
-                this.loading = true;
-
-                axios.delete('/core/contacts/' + this.idToBeDeleted).then(response => {
-                    let self = this;
-
-                    let index = this.contacts.findIndex(contact => {
-                        return contact.id === self.idToBeDeleted;
-                    });
-
-                    this.contacts.splice(index,1);
-                    this.loading = false;
-                    this.idToBeDeleted = null;
-                }).catch(error => {
-                    this.loading = false;
-                    this.reportEnsoException(error);
-                });
+            destroy(index) {
+                this.contacts.splice(index,1);
             }
         },
 
@@ -173,9 +130,9 @@
 
 <style>
 
-    .box-body.contacts {
-        overflow-y:scroll;
-        max-height: 350px
+    .box-body > div.contacts {
+        overflow-y: auto;
+        max-height: 358px;
     }
 
 </style>
