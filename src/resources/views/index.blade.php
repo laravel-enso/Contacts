@@ -4,33 +4,28 @@
 
 @section('content')
 
-    <section class="content-header">
-        @include('laravel-enso/menumanager::breadcrumbs')
-    </section>
-    <section class="content">
-        <div class="row" v-cloak>
-            <div class="col-md-12">
-                <data-table source="/core/contacts"
-                    @edit-contact="edit"
-                    id="contacts"
-                    ref="contacts">
-                </data-table>
-            </div>
+    <page v-cloak>
+        <div class="col-md-12">
+            <data-table source="/core/contacts"
+                @edit-contact="edit"
+                id="contacts"
+                ref="contacts">
+            </data-table>
         </div>
         <contact-form :show="showForm"
             v-if="showForm"
             :edit-mode="true"
             :contact="contact"
             @closed="showForm=false;contact={};"
-            @updated="update()">
+            @update="update()">
         </contact-form>
-    </section>
+    </page>
 
 @endsection
 
 @push('scripts')
 
-    <script type="text/javascript">
+    <script>
 
         const vm = new Vue({
             el: '#app',
@@ -51,12 +46,8 @@
                     this.showForm = true;
                 },
                 setContact(contact) {
+                    Object.assign(this.contact, contact);
                     this.contact.id = contact.DT_RowId;
-                    this.contact.first_name = contact.first_name;
-                    this.contact.last_name = contact.last_name;
-                    this.contact.email = contact.email;
-                    this.contact.phone = contact.phone;
-                    this.contact.obs = contact.obs;
                     this.contact.is_active = contact.is_active_bool;
                 },
                 update() {

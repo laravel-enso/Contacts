@@ -2,8 +2,9 @@
 
     <box :theme="theme"
         collapsible refresh search removable
+        :border="!solid"
         :solid="solid"
-        max-height="415px"
+        :body-style="bodyStyle"
         :open="open"
         @refresh="get()"
         icon="fa fa-address-card-o"
@@ -88,7 +89,8 @@
                 loading: false,
                 query: '',
                 contacts: [],
-                showForm: false
+                showForm: false,
+                bodyStyle: {'max-height': '415px', 'overflow-y': 'auto'}
             };
         },
 

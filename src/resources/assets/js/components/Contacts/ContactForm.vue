@@ -4,7 +4,7 @@
         header
         @cancel-action="$emit('closed')"
         @commit-action="save()"
-        max-width="350">
+        :container-style="{'max-width': '350px'}">
         <span slot="header">
             <i class="fa fa-address-card-o"></i>
             <span v-if="editMode">{{ labels.edit }}</span>
