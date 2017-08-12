@@ -64,7 +64,7 @@ class ContactTest extends TestHelper
         $contact->first_name = 'edited';
 
         $this->patch('/core/contacts/'.$contact->id, [
-                'contact' => $contact->toArray()
+                'contact' => $contact->toArray(),
             ])->assertStatus(200);
 
         $this->assertEquals('edited', $contact->fresh()->first_name);
