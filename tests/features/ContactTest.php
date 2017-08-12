@@ -19,18 +19,17 @@ class ContactTest extends TestHelper
         parent::setUp();
 
         // $this->disableExceptionHandling();
+        $this->signIn(User::first());
         $this->owner = Owner::first();
         $this->faker = Factory::create();
-        $this->signIn(User::first());
     }
 
     /** @test */
     public function index()
     {
-        $response = $this->get('/core/contacts');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('laravel-enso/contacts::index');
+        $this->get('/core/contacts')
+            ->assertStatus(200)
+            ->assertViewIs('laravel-enso/contacts::index');
     }
 
     /** @test */
@@ -38,13 +37,11 @@ class ContactTest extends TestHelper
     {
         $contact = $this->createContact();
 
-        $response = $this->call('GET', '/core/contacts/list/', [
+        $this->call('GET', '/core/contacts/list/', [
             'id'   => $this->owner->id,
             'type' => 'owner',
-            ]);
-
-        $response->assertStatus(200);
-        $response->assertJson([$contact->toArray()]);
+            ])->assertStatus(200)
+            ->assertJson([$contact->toArray()]);
     }
 
     /** @test */
@@ -52,22 +49,25 @@ class ContactTest extends TestHelper
     {
         $postParams = $this->postParams();
 
-        $response = $this->post('/core/contacts', $postParams);
+        $this->post('/core/contacts', $postParams)
+            ->assertStatus(200);
 
-        $response->assertStatus(200);
-        $this->assertNotNull(Contact::whereFirstName($postParams['contact']['first_name'])->first());
+        $contact = Contact::whereFirstName($postParams['contact']['first_name'])->first();
+
+        $this->assertNotNull($contact);
     }
 
     /** @test */
     public function update()
     {
         $contact = $this->createContact();
-        $contact['first_name'] = 'edited';
+        $contact->first_name = 'edited';
 
-        $response = $this->patch('/core/contacts/'.$contact->id, ['contact' => $contact->toArray()]);
+        $this->patch('/core/contacts/'.$contact->id, [
+                'contact' => $contact->toArray()
+            ])->assertStatus(200);
 
-        $response->assertStatus(200);
-        $this->assertTrue($contact->fresh()->first_name === 'edited');
+        $this->assertEquals('edited', $contact->fresh()->first_name);
     }
 
     /** @test */
@@ -75,10 +75,10 @@ class ContactTest extends TestHelper
     {
         $contact = $this->createContact();
 
-        $response = $this->delete('/core/contacts/'.$contact->id);
+        $this->delete('/core/contacts/'.$contact->id)
+            ->assertStatus(200)
+            ->assertJsonFragment(['message']);
 
-        $response->assertStatus(200);
-        $response->assertJsonFragment(['message']);
         $this->assertNull($contact->fresh());
     }
 
@@ -86,11 +86,9 @@ class ContactTest extends TestHelper
     {
         $data = $this->postParams();
         $contact = new Contact($data['contact']);
-        $contact->contactable_id = $this->owner->id;
-        $contact->contactable_type = 'App\Owner';
-        $contact->save();
+        $this->owner->contacts()->save($contact);
 
-        return $contact;
+        return $contact->fresh();
     }
 
     private function postParams()
