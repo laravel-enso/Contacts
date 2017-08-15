@@ -2,7 +2,6 @@
 
 namespace LaravelEnso\Contacts\app\DataTable;
 
-use LaravelEnso\Core\app\Enums\IsActiveEnum;
 use LaravelEnso\DataTable\app\Classes\TableStructure;
 
 class ContactsTableStructure extends TableStructure
@@ -10,18 +9,16 @@ class ContactsTableStructure extends TableStructure
     public function __construct()
     {
         $this->data = [
-            'tableName'               => __('Contacts'),
-            'crtNo'                   => __('#'),
-            'actionButtons'           => __('Actions'),
-            'customActionButtons'     => [
-                ['class' => 'btn-warning fa fa-pencil-square-o', 'event'=>'edit-contact', 'route' => 'core.contacts.update'],
+            'tableName'           => __('Contacts'),
+            'crtNo'               => __('#'),
+            'actionButtons'       => __('Actions'),
+            'customActionButtons' => [
+                ['class' => 'btn-warning fa fa-pencil-square-o', 'event' => 'edit-contact', 'route' => 'core.contacts.update'],
             ],
-            'headerAlign'   => 'center',
-            'bodyAlign'     => 'center',
-            'enumMappings'  => [
-                'is_active' => IsActiveEnum::class,
-            ],
-            'columns'       => [
+            'headerAlign'         => 'center',
+            'bodyAlign'           => 'center',
+            'boolean'             => [6],
+            'columns'             => [
                 0 => [
                     'label' => __('First Name'),
                     'data'  => 'first_name',

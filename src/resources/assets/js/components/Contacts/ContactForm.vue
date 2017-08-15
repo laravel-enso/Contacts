@@ -57,9 +57,13 @@
                     class="form-control text-center margin-bottom-xs"
                     v-model="contact.obs">
             </div>
-            <div class="form-group text-center">
-                <input type="checkbox" v-model="contact.is_active">
+            <div class="form-group">
                 <label>{{ labels.isActive }}</label>
+                <input :id="'is_active' + _uid"
+                    class="toggle form-control"
+                    type="checkbox"
+                    v-model="contact.is_active">
+                <label :for="'is_active' + _uid" class="toggle-input"><i></i></label>
             </div>
         </span>
     </modal>
