@@ -10,11 +10,12 @@
         icon="fa fa-address-card-o"
         :title="title || labels.contacts"
         :overlay="loading"
+        ref="box"
         @query-update="query = $event"
         :badge="contacts.length">
         <span slot="btn-box-tool">
             <button class="btn btn-box-tool btn-sm fa fa-plus-square"
-                @click="showForm=true">
+                @click="create()">
             </button>
         </span>
         <div class="contacts">
@@ -114,6 +115,13 @@
                     phone: "",
                     obs: ""
                 };
+            },
+            create() {
+                if (this.$refs.box.collapsed) {
+                    this.$refs.box.toggle();
+                }
+
+                this.showForm=true;
             },
             add(contact) {
                 this.contacts.push(contact);
