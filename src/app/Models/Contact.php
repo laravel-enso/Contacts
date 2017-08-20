@@ -16,6 +16,18 @@ class Contact extends Model
 
     protected $casts = ['is_active' => 'boolean'];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->table = config('contacts.table') ?: 'contacts';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(config('auth.providers.users.model'), 'created_by', 'id');
+    }
+
     public function contactable()
     {
         return $this->morphTo();
