@@ -9,7 +9,6 @@ class CreateStructureForContacts extends StructureMigration
     ];
 
     protected $permissions = [
-        ['name' => 'core.contacts.index', 'description' => 'Show contacts index', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.update', 'description' => 'Update edited contact', 'type' => 1, 'default' => false],
         ['name' => 'core.contacts.store', 'description' => 'Store newly created contact', 'type' => 1, 'default' => false],
         ['name' => 'core.contacts.destroy', 'description' => 'Delete contact', 'type' => 1, 'default' => false],
