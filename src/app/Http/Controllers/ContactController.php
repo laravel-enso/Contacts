@@ -29,7 +29,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'The form has errors',
-                'errors' => $validator->errors()->toArray()
+                'errors'  => $validator->errors()->toArray(),
             ], 422);
         }
 
@@ -43,7 +43,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'The form has errors',
-                'errors' => $validator->errors()->toArray()
+                'errors'  => $validator->errors()->toArray(),
             ], 422);
         }
 
