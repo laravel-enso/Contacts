@@ -9,15 +9,18 @@ class ContactsTableStructure extends TableStructure
     public function __construct()
     {
         $this->data = [
-            'tableName'           => __('Contacts'),
+            'name'                => __('Contacts'),
+            'icon'                => 'fa fa-address-book-o',
             'crtNo'               => __('#'),
-            'actionButtons'       => __('Actions'),
+            'actions'             => __('Actions'),
+            'actionButtons'       => ['destroy'],
             'customActionButtons' => [
-                ['class' => 'btn-warning fa fa-pencil-square-o', 'event' => 'edit-contact', 'route' => 'core.contacts.update'],
+                ['icon' => 'fa fa-pencil-square-o', 'class' => 'is-warning', 'event' => 'edit-contact', 'route' => 'core.contacts.update'],
             ],
+            'headerButtons'       => ['exportExcel'],
             'headerAlign'         => 'center',
             'bodyAlign'           => 'center',
-            'boolean'             => [6],
+            'boolean'             => [5],
             'columns'             => [
                 0 => [
                     'label' => __('First Name'),
@@ -30,26 +33,21 @@ class ContactsTableStructure extends TableStructure
                     'name'  => 'contacts.last_name',
                 ],
                 2 => [
-                    'label' => __('Owner'),
-                    'data'  => 'owner',
-                    'name'  => 'contacts.owner',
-                ],
-                3 => [
                     'label' => __('Phone'),
                     'data'  => 'phone',
                     'name'  => 'contacts.phone',
                 ],
-                4 => [
+                3 => [
                     'label' => __('Email'),
                     'data'  => 'email',
                     'name'  => 'contacts.email',
                 ],
-                5 => [
+                4 => [
                     'label' => __('Observations'),
                     'data'  => 'obs',
                     'name'  => 'contacts.obs',
                 ],
-                6 => [
+                5 => [
                     'label' => __('Active'),
                     'data'  => 'is_active',
                     'name'  => 'contacts.is_active',

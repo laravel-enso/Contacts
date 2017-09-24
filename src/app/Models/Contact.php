@@ -20,7 +20,7 @@ class Contact extends Model
     {
         parent::__construct($attributes);
 
-        $this->table = config('contacts.table') ?: 'contacts';
+        $this->table = config('enso.contacts.table') ?: 'contacts';
     }
 
     public function user()

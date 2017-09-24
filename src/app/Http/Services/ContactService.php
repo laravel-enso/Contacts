@@ -7,54 +7,46 @@ use LaravelEnso\Contacts\app\Models\Contact;
 
 class ContactService
 {
-    private $request;
-
-    public function __construct(Request $request)
+    public function list(Request $request)
     {
-        $this->request = $request;
-    }
-
-    public function list()
-    {
-        $contactable = $this->getContactable();
+        $contactable = $this->getContactable($request);
 
         return $contactable->contacts()->get();
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $contactable = $this->getContactable();
-        $contact = new Contact($this->request->get('contact'));
-        $contact->owner = $contactable->name;
+        $contactable = $this->getContactable($request);
+        $contact = new Contact($request->get('contact'));
         $contactable->contacts()->save($contact);
 
         return $contact->fresh();
     }
 
-    public function update(Contact $contact)
+    public function update(Request $request, Contact $contact)
     {
-        $contact = $contact->update($this->request->get('contact'));
+        $contact = $contact->update($request->get('contact'));
     }
 
     public function destroy(Contact $contact)
     {
         $contact->delete();
 
-        return ['message' => __(config('labels.successfulOperation'))];
+        return ['message' => __(config('enso.labels.successfulOperation'))];
     }
 
-    private function getContactable()
+    private function getContactable(Request $request)
     {
-        return $this->getContactableClass()::find($this->request['id']);
+        return $this->getContactableClass($request)::find($request->get('id'));
     }
 
-    private function getContactableClass()
+    private function getContactableClass(Request $request)
     {
-        $class = config('contacts.contactables.'.$this->request['type']);
+        $class = config('enso.contacts.contactables.'.$request->get('type'));
 
         if (!$class) {
             throw new \EnsoException(
-                __('Current entity does not exist in contacts.php config file: ').$this->request['type']
+                __('Current entity does not exist in contacts.php config file').': '.$request->get('type')
             );
         }
 

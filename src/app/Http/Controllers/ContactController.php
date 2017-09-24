@@ -10,54 +10,55 @@ use LaravelEnso\Contacts\app\Models\Contact;
 
 class ContactController extends Controller
 {
-    private $contacts;
+    private $service;
 
-    public function __construct(Request $request)
+    public function __construct(ContactService $service)
     {
-        $this->contacts = new ContactService($request);
+        $this->service = $service;
     }
 
-    public function index()
+    public function list(Request $request)
     {
-        return view('laravel-enso/contacts::index');
+        return $this->service->list($request);
     }
 
-    public function list()
+    public function store(Request $request)
     {
-        return $this->contacts->list();
-    }
-
-    public function store()
-    {
-        $validator = $this->validateRequest();
+        $validator = $this->validateRequest($request);
 
         if ($validator->fails()) {
-            throw new \EnsoException('The form has errors', 'error', $validator->errors()->toArray());
+            return response()->json([
+                'message' => 'The form has errors',
+                'errors' => $validator->errors()->toArray()
+            ], 422);
         }
 
-        return $this->contacts->store();
+        return $this->service->store($request);
     }
 
-    public function update(Contact $contact)
+    public function update(Request $request, Contact $contact)
     {
-        $validator = $this->validateRequest();
+        $validator = $this->validateRequest($request);
 
         if ($validator->fails()) {
-            throw new \EnsoException('The form has errors', 'error', $validator->errors()->toArray());
+            return response()->json([
+                'message' => 'The form has errors',
+                'errors' => $validator->errors()->toArray()
+            ], 422);
         }
 
-        return $this->contacts->update($contact);
+        return $this->service->update($request, $contact);
     }
 
     public function destroy(Contact $contact)
     {
-        return $this->contacts->destroy($contact);
+        return $this->service->destroy($contact);
     }
 
-    private function validateRequest()
+    private function validateRequest(Request $request)
     {
         $rules = (new ValidateContactRequest())->rules();
-        $validator = \Validator::make(request()->get('contact'), $rules);
+        $validator = \Validator::make($request->get('contact'), $rules);
 
         return $validator;
     }

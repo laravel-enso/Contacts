@@ -25,15 +25,8 @@ class ValidateContactRequest extends FormRequest
         return [
             'first_name' => 'required|max:50',
             'last_name'  => 'required|max:50',
-            'email'      => [
-                'email',
-                'nullable',
-                $emailUnique,
-            ],
-            'phone'      => [
-                'nullable',
-                $phoneUnique,
-            ],
+            'email'      => ['email', 'nullable', $emailUnique],
+            'phone'      => ['nullable', $phoneUnique],
         ];
     }
 }

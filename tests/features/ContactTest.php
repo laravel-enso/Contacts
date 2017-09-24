@@ -6,30 +6,25 @@ use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\TestHelper\app\Classes\TestHelper;
+use LaravelEnso\TestHelper\app\Classes\Traits\TestCreateForm;
+use LaravelEnso\TestHelper\app\Classes\Traits\TestDataTable;
 
 class ContactTest extends TestHelper
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, TestDataTable;
 
     private $owner;
     private $faker;
+    private $prefix = 'core.contacts';
 
     protected function setUp()
     {
         parent::setUp();
 
-        // $this->disableExceptionHandling();
+        $this->disableExceptionHandling();
         $this->signIn(User::first());
         $this->owner = Owner::first();
         $this->faker = Factory::create();
-    }
-
-    /** @test */
-    public function index()
-    {
-        $this->get('/core/contacts')
-            ->assertStatus(200)
-            ->assertViewIs('laravel-enso/contacts::index');
     }
 
     /** @test */
@@ -37,7 +32,7 @@ class ContactTest extends TestHelper
     {
         $contact = $this->createContact();
 
-        $this->call('GET', '/core/contacts/list/', [
+        $this->call('GET', route('core.contacts.list', [], false), [
             'id'   => $this->owner->id,
             'type' => 'owner',
             ])->assertStatus(200)
