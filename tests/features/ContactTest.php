@@ -6,7 +6,7 @@ use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\TestHelper\app\Classes\TestHelper;
-use LaravelEnso\TestHelper\app\Classes\Traits\TestDataTable;
+use LaravelEnso\TestHelper\app\Traits\TestDataTable;
 
 class ContactTest extends TestHelper
 {

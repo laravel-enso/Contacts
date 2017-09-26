@@ -18,6 +18,6 @@ Route::middleware(['web', 'auth', 'core'])
                             ->name('list');
                     });
 
-                Route::resource('contacts', 'ContactController', ['only' => ['update', 'store', 'destroy']]);
+                Route::resource('contacts', 'ContactController', ['exclude' => ['show', 'create', 'edit']]);
             });
     });

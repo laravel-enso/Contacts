@@ -19,9 +19,9 @@
 
 <script>
 
-	import PageHeader from '../../../components/bulma/layout/PageHeader.vue';
-    import Datatable from '../../../components/bulma/datatable/Datatable.vue';
-	import ContactForm from '../../../components/bulma/contacts/ContactForm.vue';
+	import PageHeader from '../../../components/enso/layout/PageHeader.vue';
+    import Datatable from '../../../components/enso/datatable/Datatable.vue';
+	import ContactForm from '../../../components/enso/contacts/ContactForm.vue';
 
     export default {
     	components: { PageHeader, Datatable, ContactForm },
