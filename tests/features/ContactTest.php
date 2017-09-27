@@ -28,7 +28,8 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function list() {
+    public function list()
+    {
         $contact = $this->createContact();
 
         $this->call('GET', route('core.contacts.list', [], false), [
@@ -54,10 +55,10 @@ class ContactTest extends TestCase
     /** @test */
     public function update()
     {
-        $contact             = $this->createContact();
+        $contact = $this->createContact();
         $contact->first_name = 'edited';
 
-        $this->patch('/core/contacts/' . $contact->id, [
+        $this->patch('/core/contacts/'.$contact->id, [
             'contact' => $contact->toArray(),
         ])->assertStatus(200);
 
@@ -69,7 +70,7 @@ class ContactTest extends TestCase
     {
         $contact = $this->createContact();
 
-        $this->delete('/core/contacts/' . $contact->id)
+        $this->delete('/core/contacts/'.$contact->id)
             ->assertStatus(200)
             ->assertJsonFragment(['message']);
 
@@ -78,7 +79,7 @@ class ContactTest extends TestCase
 
     private function createContact()
     {
-        $data    = $this->postParams();
+        $data = $this->postParams();
         $contact = new Contact($data['contact']);
         $this->owner->contacts()->save($contact);
 
