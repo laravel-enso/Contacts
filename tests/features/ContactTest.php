@@ -5,12 +5,13 @@ use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\TestHelper\app\Classes\TestHelper;
+use LaravelEnso\TestHelper\app\Traits\SignIn;
 use LaravelEnso\TestHelper\app\Traits\TestDataTable;
+use Tests\TestCase;
 
-class ContactTest extends TestHelper
+class ContactTest extends TestCase
 {
-    use DatabaseMigrations, TestDataTable;
+    use DatabaseMigrations, SignIn, TestDataTable;
 
     private $owner;
     private $faker;
@@ -20,21 +21,20 @@ class ContactTest extends TestHelper
     {
         parent::setUp();
 
-        $this->disableExceptionHandling();
+        // $this->withoutExceptionHandling();
         $this->signIn(User::first());
         $this->owner = Owner::first();
         $this->faker = Factory::create();
     }
 
     /** @test */
-    public function list()
-    {
+    function list() {
         $contact = $this->createContact();
 
         $this->call('GET', route('core.contacts.list', [], false), [
             'id'   => $this->owner->id,
             'type' => 'owner',
-            ])->assertStatus(200)
+        ])->assertStatus(200)
             ->assertJson([$contact->toArray()]);
     }
 
@@ -54,12 +54,12 @@ class ContactTest extends TestHelper
     /** @test */
     public function update()
     {
-        $contact = $this->createContact();
+        $contact             = $this->createContact();
         $contact->first_name = 'edited';
 
-        $this->patch('/core/contacts/'.$contact->id, [
-                'contact' => $contact->toArray(),
-            ])->assertStatus(200);
+        $this->patch('/core/contacts/' . $contact->id, [
+            'contact' => $contact->toArray(),
+        ])->assertStatus(200);
 
         $this->assertEquals('edited', $contact->fresh()->first_name);
     }
@@ -69,7 +69,7 @@ class ContactTest extends TestHelper
     {
         $contact = $this->createContact();
 
-        $this->delete('/core/contacts/'.$contact->id)
+        $this->delete('/core/contacts/' . $contact->id)
             ->assertStatus(200)
             ->assertJsonFragment(['message']);
 
@@ -78,7 +78,7 @@ class ContactTest extends TestHelper
 
     private function createContact()
     {
-        $data = $this->postParams();
+        $data    = $this->postParams();
         $contact = new Contact($data['contact']);
         $this->owner->contacts()->save($contact);
 
