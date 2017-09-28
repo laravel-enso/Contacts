@@ -20,7 +20,7 @@ class CreateStructureForContacts extends StructureMigration
     ];
 
     protected $menu = [
-        'name' => 'Contacts', 'icon' => 'fa fa-fw fa-address-book-o', 'link' => 'core/contacts', 'has_children' => false,
+        'name' => 'Contacts', 'icon' => 'fa fa-fw fa-address-book-o', 'link' => 'core.contacts.index', 'has_children' => false,
     ];
 
     protected $parentMenu = 'Administration';

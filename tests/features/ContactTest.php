@@ -3,7 +3,7 @@
 use App\Owner;
 use App\User;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\TestHelper\app\Traits\SignIn;
 use LaravelEnso\TestHelper\app\Traits\TestDataTable;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
-    use DatabaseMigrations, SignIn, TestDataTable;
+    use RefreshDatabase, SignIn, TestDataTable;
 
     private $owner;
     private $faker;
