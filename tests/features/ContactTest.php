@@ -44,7 +44,7 @@ class ContactTest extends TestCase
     {
         $postParams = $this->postParams();
 
-        $this->post('/core/contacts', $postParams)
+        $this->post(route('core.contacts.store', [], false), $postParams)
             ->assertStatus(200);
 
         $contact = Contact::whereFirstName($postParams['contact']['first_name'])->first();
@@ -58,7 +58,7 @@ class ContactTest extends TestCase
         $contact = $this->createContact();
         $contact->first_name = 'edited';
 
-        $this->patch('/core/contacts/'.$contact->id, [
+        $this->patch(route('core.contacts.update', $contact->id, false), [
             'contact' => $contact->toArray(),
         ])->assertStatus(200);
 
@@ -70,7 +70,7 @@ class ContactTest extends TestCase
     {
         $contact = $this->createContact();
 
-        $this->delete('/core/contacts/'.$contact->id)
+        $this->delete(route('core.contacts.destroy', $contact->id, false))
             ->assertStatus(200)
             ->assertJsonFragment(['message']);
 
