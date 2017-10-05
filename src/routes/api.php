@@ -18,5 +18,4 @@ Route::middleware(['web', 'auth', 'core'])
             });
 
         Route::resource('contacts', 'ContactController', ['exclude' => ['show', 'create', 'edit']]);
-
     });
