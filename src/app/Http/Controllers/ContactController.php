@@ -32,7 +32,7 @@ class ContactController extends Controller
         $validator = $this->validateRequest();
 
         if ($validator->fails()) {
-            throw new \EnsoException('The form has errors', 'error', $validator->errors()->toArray());
+            throw new \EnsoException('The form has errors');
         }
 
         return $this->contacts->store();
@@ -43,7 +43,7 @@ class ContactController extends Controller
         $validator = $this->validateRequest();
 
         if ($validator->fails()) {
-            throw new \EnsoException('The form has errors', 'error', $validator->errors()->toArray());
+            throw new \EnsoException('The form has errors');
         }
 
         return $this->contacts->update($contact);
