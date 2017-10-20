@@ -12,21 +12,81 @@ Contacts dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 
 [![Screenshot](https://laravel-enso.github.io/contacts/screenshots/Selection_024_thumb.png)](https://laravel-enso.github.io/contacts/screenshots/Selection_024.png)
 
+### Features
+
+- allows the management of contact persons, attached to other entities, such as owners
+- uses a polymorphic relationship for flexibility when attaching
+- contacts can be disabled while still keeping them, for reference
+- comes with a `Contacts.vue` VueJS component meant to be included anywhere
+- uses the [VueComponents](https://github.com/laravel-enso/VueComponents) package in order to load its VueJS components
+
+
 ### Installation steps
 
-1. Add `LaravelEnso\Contacts\ContactsServiceProvider::class` to `config/app.php`.
+1. Run the migrations
 
-2. Run the migrations.
+2. Publish the config with `php artisan vendor:publish --tag=contacts-config`, and update the published file as required in `config\enso\contacts.php`
 
-3. Add the following relationship to the Owner model
+4. Publish the vue components and assets with `php artisan vendor:publish --tag=enso-assets`
+
+5. Include the vue components and assets in your `app.js`
+
+    ```
+    Vue.component('contact', require('./vendor/laravel-enso/components/Contact.vue'));
+    Vue.component('contactForm', require('./vendor/laravel-enso/components/ContactForm.vue'));
+    Vue.component('contacts', require('./vendor/laravel-enso/components/Contacts.vue'));
+    ```
+
+6. Run `gulp` / `npm run webpack`
+
+7. Add the following relationship to your contactable model(s)
 
     ```php
     public function contacts()
     {
         return $this->hasMany('LaravelEnso\Contacts\app\Models\Contact');
     }
-    ```
+    ``` 
+    
+8. Use the VueJS component in your pages/components
 
+    ```
+    <contacts
+        type="entityType"
+        id="entityId"
+        :open="true"
+        title="My Custom Title" >
+    </contacts>
+    ```
+    
+### Options
+The `Contacts.vue` component can be used anywhere and can be integrated into any other component or page, and takes the following parameters:
+- `type` - the entity type, set in the configuration file | (required)
+- `id` - the id of the entity | (required)
+- `open` - boolean flag, which, if true, makes the component start in the open state, default is false | (optional)
+- `open` - title for the component, default is 'Contacts' | (optional)
+
+
+    
+### Publishes
+
+- `php artisan vendor:publish --tag=contacts-config` - the configuration file
+- `php artisan vendor:publish --tag=vue-components` - the VueJS components
+- `php artisan vendor:publish --tag=enso-assets` - a common alias for when wanting to update the VueJS component,
+once a newer version is released, can be used with the `--force` flag
+- `php artisan vendor:publish --tag=enso-config` - a common alias for when wanting to update the config,
+once a newer version is released, can be used with the `--force` flag
+
+### Notes
+
+The [Laravel Enso](https://github.com/laravel-enso/Enso) package comes with this package included.
+
+Depends on:
+ - [Datatable](https://github.com/laravel-enso/Datatable) for showing the list of contacts
+ - [Structure manager](https://github.com/laravel-enso/StructureManager) for the migrations
+ - [TrackWho](https://github.com/laravel-enso/TrackWho) for keeping track of the users making the changes to each contact
+ - [VueComponents](https://github.com/laravel-enso/VueComponents) for the accompanying VueJS components
+ - [Helpers](https://github.com/laravel-enso/Helpers) for the IsActive trait
 
 <!--h-->
 ### Contributions
