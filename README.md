@@ -10,7 +10,7 @@
 
 Contacts dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 
-[![Screenshot](https://laravel-enso.github.io/contacts/screenshots/Selection_024_thumb.png)](https://laravel-enso.github.io/contacts/screenshots/Selection_024.png)
+[![Screenshot](https://laravel-enso.github.io/contacts/screenshots/bulma_024_thumb.png)](https://laravel-enso.github.io/contacts/videos/demo_contacts.webm)
 
 ### Features
 
