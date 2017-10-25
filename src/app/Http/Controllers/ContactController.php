@@ -23,7 +23,8 @@ class ContactController extends Controller
         return view('laravel-enso/contacts::index');
     }
 
-    function list() {
+    public function list()
+    {
         return $this->contacts->list();
     }
 
@@ -56,7 +57,7 @@ class ContactController extends Controller
 
     private function validateRequest()
     {
-        $rules     = (new ValidateContactRequest())->rules();
+        $rules = (new ValidateContactRequest())->rules();
         $validator = \Validator::make(request()->get('contact'), $rules);
 
         return $validator;
