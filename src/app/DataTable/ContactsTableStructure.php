@@ -17,7 +17,7 @@ class ContactsTableStructure extends TableStructure
             ],
             'headerAlign'         => 'center',
             'bodyAlign'           => 'center',
-            'boolean'             => [6],
+            'boolean'             => [5],
             'columns'             => [
                 0 => [
                     'label' => __('First Name'),
@@ -30,26 +30,21 @@ class ContactsTableStructure extends TableStructure
                     'name'  => 'contacts.last_name',
                 ],
                 2 => [
-                    'label' => __('Owner'),
-                    'data'  => 'owner',
-                    'name'  => 'contacts.owner',
-                ],
-                3 => [
                     'label' => __('Phone'),
                     'data'  => 'phone',
                     'name'  => 'contacts.phone',
                 ],
-                4 => [
+                3 => [
                     'label' => __('Email'),
                     'data'  => 'email',
                     'name'  => 'contacts.email',
                 ],
-                5 => [
+                4 => [
                     'label' => __('Observations'),
                     'data'  => 'obs',
                     'name'  => 'contacts.obs',
                 ],
-                6 => [
+                5 => [
                     'label' => __('Active'),
                     'data'  => 'is_active',
                     'name'  => 'contacts.is_active',

@@ -25,7 +25,6 @@ class ContactService
     {
         $contactable = $this->getContactable();
         $contact = new Contact($this->request->get('contact'));
-        $contact->owner = $contactable->name;
         $contactable->contacts()->save($contact);
 
         return $contact->fresh();
