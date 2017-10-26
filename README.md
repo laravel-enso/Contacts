@@ -23,36 +23,18 @@ Contacts dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 
 ### Installation steps
 
-1. Run the migrations
+The component is already included in the Enso install and should not require any additional installation steps.
 
-2. Publish the config with `php artisan vendor:publish --tag=contacts-config`, and update the published file as required in `config\enso\contacts.php`
+### Use
 
-4. Publish the vue components and assets with `php artisan vendor:publish --tag=enso-assets`
-
-5. Include the vue components and assets in your `app.js`
-
-    ```
-    Vue.component('contact', require('./vendor/laravel-enso/components/Contact.vue'));
-    Vue.component('contactForm', require('./vendor/laravel-enso/components/ContactForm.vue'));
-    Vue.component('contacts', require('./vendor/laravel-enso/components/Contacts.vue'));
-    ```
-
-6. Run `gulp` / `npm run webpack`
-
-7. Add the following relationship to your contactable model(s)
-
-    ```php
-    public function contacts()
-    {
-        return $this->hasMany('LaravelEnso\Contacts\app\Models\Contact');
-    }
-    ``` 
-    
-8. Use the VueJS component in your pages/components
+1. Define the `'model_alias' => 'App\Model'` mapping in the `config/enso/contacts.php` file
+2. Add the `Contactable` trait in the Model to which you need to add contacts 
+    You can then use the `$model->contacts` relationship    
+3. Use the VueJS component in your pages/components
 
     ```
     <contacts
-        type="entityType"
+        type="model_alias"
         id="entityId"
         :open="true"
         title="My Custom Title" >
@@ -60,12 +42,11 @@ Contacts dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
     ```
     
 ### Options
-The `Contacts.vue` component can be used anywhere and can be integrated into any other component or page, and takes the following parameters:
-- `type` - the entity type, set in the configuration file | (required)
+The `Contacts.vue` component can be used anywhere, can be integrated into any other component or page, and takes the following parameters:
+- `type` - string, the entity type, set in the configuration file | (required)
 - `id` - the id of the entity | (required)
-- `open` - boolean flag, which, if true, makes the component start in the open state, default is false | (optional)
-- `open` - title for the component, default is 'Contacts' | (optional)
-
+- `open` - boolean, flag which, if true, makes the component start in the open state | default `false` | (optional)
+- `title` - title for the component | default 'Contacts' | (optional)
 
     
 ### Publishes
