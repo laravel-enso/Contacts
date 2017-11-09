@@ -17,11 +17,11 @@ class ContactsTableStructure extends TableStructure
             'customActionButtons' => [
                 ['icon' => 'fa fa-pencil-square-o', 'class' => 'is-warning', 'event' => 'edit-contact', 'route' => 'core.contacts.update'],
             ],
-            'headerButtons'       => ['exportExcel'],
-            'headerAlign'         => 'center',
-            'bodyAlign'           => 'center',
-            'boolean'             => [5],
-            'columns'             => [
+            'headerButtons' => ['exportExcel'],
+            'headerAlign'   => 'center',
+            'bodyAlign'     => 'center',
+            'boolean'       => [5],
+            'columns'       => [
                 0 => [
                     'label' => __('First Name'),
                     'data'  => 'first_name',
