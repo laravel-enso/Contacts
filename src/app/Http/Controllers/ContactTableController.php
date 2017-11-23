@@ -3,19 +3,19 @@
 namespace LaravelEnso\Contacts\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use LaravelEnso\Contacts\app\DataTable\ContactsTableStructure;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\DataTable\app\Traits\DataTable;
+use LaravelEnso\VueDatatable\app\Traits\Excel;
+use LaravelEnso\VueDatatable\app\Traits\Datatable;
 
 class ContactTableController extends Controller
 {
-    use DataTable;
+    use Datatable, Excel;
 
-    protected $tableStructureClass = ContactsTableStructure::class;
+    private const Template = __DIR__ . '/../../Tables/contacts.json';
 
-    private function getTableQuery()
+    public function query()
     {
-        return Contact::select(\DB::raw('id as DT_RowId, first_name, last_name, phone, email, is_active,
+        return Contact::select(\DB::raw('id as dtRowId, first_name, last_name, phone, email, is_active,
         	obs, is_active is_active_bool'));
     }
 }

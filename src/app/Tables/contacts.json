@@ -1,0 +1,46 @@
+{
+    "routePrefix": "core.contacts",
+    "readSuffix": "getTableData",
+    "writeSuffix": null,
+    "name": "Contacts",
+    "icon": "fa fa-address-book-o",
+    "crtNo": true,
+    "buttons": [
+        "excel",
+        {
+            "type": "row",
+            "icon": "fa fa-pencil-square-o",
+            "class": "is-warning",
+            "routeSuffix": "update",
+            "event": "edit-contact"
+        },
+        "destroy"
+    ],
+    "columns": [
+        {
+            "label": "First Name",
+            "name": "first_name",
+            "meta": ["searchable", "sortable"]
+        },
+        {
+            "label": "Last Name",
+            "name": "last_name",
+            "meta": ["searchable", "sortable"]
+        },
+        {
+            "label": "Phone",
+            "name": "phone",
+            "meta": ["searchable", "sortable"]
+        },
+        {
+            "label": "Email",
+            "name": "email",
+            "meta": ["searchable", "sortable"]
+        },
+        {
+            "label": "Active",
+            "name": "is_active",
+            "meta": ["boolean"]
+        }
+    ]
+}

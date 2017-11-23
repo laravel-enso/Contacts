@@ -3,12 +3,12 @@
 namespace LaravelEnso\Contacts\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelEnso\Helpers\Traits\IsActiveTrait;
+use LaravelEnso\Helpers\Traits\IsActive;
 use LaravelEnso\TrackWho\app\Traits\CreatedBy;
 
 class Contact extends Model
 {
-    use IsActiveTrait, CreatedBy;
+    use IsActive, CreatedBy;
 
     protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'obs', 'is_active'];
 

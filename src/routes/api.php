@@ -6,11 +6,11 @@ Route::middleware(['web', 'auth', 'core'])
     ->group(function () {
         Route::prefix('contacts')->as('contacts.')
             ->group(function () {
-                Route::get('initTable', 'ContactTableController@initTable')
+                Route::get('initTable', 'ContactTableController@init')
                     ->name('initTable');
-                Route::get('getTableData', 'ContactTableController@getTableData')
+                Route::get('getTableData', 'ContactTableController@data')
                     ->name('getTableData');
-                Route::get('exportExcel', 'ContactTableController@exportExcel')
+                Route::get('exportExcel', 'ContactTableController@excel')
                     ->name('exportExcel');
 
                 Route::get('list', 'ContactController@list')
