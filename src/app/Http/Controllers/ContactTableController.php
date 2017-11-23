@@ -4,14 +4,14 @@ namespace LaravelEnso\Contacts\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\VueDatatable\app\Traits\Excel;
 use LaravelEnso\VueDatatable\app\Traits\Datatable;
+use LaravelEnso\VueDatatable\app\Traits\Excel;
 
 class ContactTableController extends Controller
 {
     use Datatable, Excel;
 
-    private const Template = __DIR__ . '/../../Tables/contacts.json';
+    private const Template = __DIR__.'/../../Tables/contacts.json';
 
     public function query()
     {
