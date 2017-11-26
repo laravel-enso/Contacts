@@ -26,6 +26,8 @@ class ContactService
     public function update(Request $request, Contact $contact)
     {
         $contact = $contact->update($request->get('contact'));
+
+        return ['message' => __(config('enso.labels.successfulOperation'))];
     }
 
     public function destroy(Contact $contact)
@@ -42,11 +44,11 @@ class ContactService
 
     private function getContactableClass(Request $request)
     {
-        $class = config('enso.contacts.contactables.'.$request->get('type'));
+        $class = config('enso.contacts.contactables.' . $request->get('type'));
 
         if (!$class) {
             throw new \EnsoException(
-                __('Current entity does not exist in contacts.php config file').': '.$request->get('type')
+                __('Current entity does not exist in contacts.php config file') . ': ' . $request->get('type')
             );
         }
 
