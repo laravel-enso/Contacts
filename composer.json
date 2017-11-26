@@ -25,11 +25,11 @@
     "require": {
         "php": ">=7.1.0",
         "laravel/framework": "5.5.*",
-        "laravel-enso/vue-datatable": "2.1.*",
         "laravel-enso/helpers": "1.5.*",
         "laravel-enso/structuremanager": "2.1.*",
         "laravel-enso/trackwho": "1.5.*",
         "laravel-enso/vuecomponents": "2.1.*",
+        "laravel-enso/vuedatatable": "1.0.*",
         "laravel-enso/testhelper": "1.4.*"
     },
     "autoload": {
