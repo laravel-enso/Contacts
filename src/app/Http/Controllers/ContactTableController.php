@@ -4,8 +4,8 @@ namespace LaravelEnso\Contacts\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\VueDatatable\app\Traits\Datatable;
 use LaravelEnso\VueDatatable\app\Traits\Excel;
+use LaravelEnso\VueDatatable\app\Traits\Datatable;
 
 class ContactTableController extends Controller
 {

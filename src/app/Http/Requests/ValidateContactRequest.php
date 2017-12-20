@@ -15,9 +15,9 @@ class ValidateContactRequest extends FormRequest
     {
         return [
             'first_name' => 'required|max:50',
-            'last_name'  => 'required|max:50',
-            'email'      => 'email|nullable',
-            'phone'      => 'nullable',
+            'last_name' => 'required|max:50',
+            'email' => 'email|nullable',
+            'phone' => 'nullable',
         ];
     }
 }

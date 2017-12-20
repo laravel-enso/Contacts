@@ -2,11 +2,11 @@
 
 namespace LaravelEnso\Contacts\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
-use LaravelEnso\Contacts\App\Http\Services\ContactService;
+use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
+use LaravelEnso\Contacts\App\Http\Services\ContactService;
+use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
 
 class ContactController extends Controller
 {
@@ -29,7 +29,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'The form has errors',
-                'errors'  => $validator->errors()->toArray(),
+                'errors' => $validator->errors()->toArray(),
             ], 422);
         }
 
@@ -43,7 +43,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'The form has errors',
-                'errors'  => $validator->errors()->toArray(),
+                'errors' => $validator->errors()->toArray(),
             ], 422);
         }
 
