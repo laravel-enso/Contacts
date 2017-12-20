@@ -33,7 +33,7 @@ class ContactTest extends TestCase
         $contact = $this->createContact();
 
         $this->call('GET', route('core.contacts.list', [], false), [
-            'id'   => $this->owner->id,
+            'id' => $this->owner->id,
             'type' => 'owner',
         ])->assertStatus(200)
             ->assertJson([$contact->toArray()]);
@@ -89,14 +89,14 @@ class ContactTest extends TestCase
     private function postParams()
     {
         return [
-            'type'    => 'owner',
-            'id'      => $this->owner->id,
+            'type' => 'owner',
+            'id' => $this->owner->id,
             'contact' => [
                 'first_name' => $this->faker->firstName,
-                'last_name'  => $this->faker->lastName,
-                'phone'      => $this->faker->phoneNumber,
-                'email'      => $this->faker->email,
-                'is_active'  => 1,
+                'last_name' => $this->faker->lastName,
+                'phone' => $this->faker->phoneNumber,
+                'email' => $this->faker->email,
+                'is_active' => 1,
             ],
         ];
     }
