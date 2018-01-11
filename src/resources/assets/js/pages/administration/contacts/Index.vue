@@ -21,12 +21,11 @@
 <script>
 
 import { mapGetters } from 'vuex';
-import PageHeader from '../../layout/PageHeader.vue';
-import VueTable from '../../../../components/enso/vuedatatable/VueTable.vue';
-import ContactForm from '../../../../components/enso/contacts/ContactForm.vue';
+import VueTable from '../../../components/enso/vuedatatable/VueTable.vue';
+import ContactForm from '../../../components/enso/contacts/ContactForm.vue';
 
 export default {
-    components: { PageHeader, VueTable, ContactForm },
+    components: { VueTable, ContactForm },
 
     computed: {
         ...mapGetters('locale', ['__']),

@@ -28,7 +28,7 @@
         "laravel-enso/helpers": "1.6.*",
         "laravel-enso/structuremanager": "2.1.*",
         "laravel-enso/trackwho": "1.5.*",
-        "laravel-enso/vuecomponents": "2.1.*",
+        "laravel-enso/vuecomponents": "2.0.*",
         "laravel-enso/vuedatatable": "1.0.*"
     },
     "require-dev": {
@@ -42,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelEnso\\Contacts\\ContactsServiceProvider"
+                "LaravelEnso\\Contacts\\AppServiceProvider"
             ],
             "aliases": {}
         }
