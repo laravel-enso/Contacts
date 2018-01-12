@@ -26,7 +26,7 @@ class ContactService
         $contact->save();
 
         return [
-            'message'  => __('Created Contact'),
+            'message' => __('Created Contact'),
             'redirect' => '',
         ];
     }
