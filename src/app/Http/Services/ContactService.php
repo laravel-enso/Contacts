@@ -4,6 +4,7 @@ namespace LaravelEnso\Contacts\App\Http\Services;
 
 use Illuminate\Http\Request;
 use LaravelEnso\Contacts\app\Models\Contact;
+use LaravelEnso\FormBuilder\app\Classes\Form;
 
 class ContactService
 {
@@ -16,16 +17,23 @@ class ContactService
 
     public function store(Request $request)
     {
-        $contactable = $this->getContactable($request);
-        $contact = new Contact($request->get('contact'));
-        $contactable->contacts()->save($contact);
+        $params = (object) $request->get('_params');
 
-        return $contact->fresh();
+        $contact = new Contact($request->all());
+        $contact->contactable_id = $params->id;
+        $contact->contactable_type = config('enso.contacts.contactables.'.$params->type);
+
+        $contact->save();
+
+        return [
+            'message'  => __('Created Contact'),
+            'redirect' => '',
+        ];
     }
 
     public function update(Request $request, Contact $contact)
     {
-        $contact = $contact->update($request->get('contact'));
+        $contact = $contact->update($request->all());
 
         return ['message' => __(config('enso.labels.successfulOperation'))];
     }
@@ -53,5 +61,31 @@ class ContactService
         }
 
         return $class;
+    }
+
+    public function getEditForm(Contact $contact)
+    {
+        $editForm = (new Form($this->getFormPath()))
+            ->edit($contact)
+            ->title('Edit')
+            ->actions(['update', 'destroy'])
+            ->get();
+
+        return compact('editForm');
+    }
+
+    public function getCreateForm()
+    {
+        $createForm = (new Form($this->getFormPath()))
+            ->create()
+            ->title('Insert')
+            ->get();
+
+        return compact('createForm');
+    }
+
+    private function getFormPath(): string
+    {
+        return __DIR__.'/../../Forms/contacts/contact.json';
     }
 }
