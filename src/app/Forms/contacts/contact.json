@@ -1,0 +1,73 @@
+{
+    "title": null,
+    "icon": "fa fa-address-card-o",
+    "columns": 2,
+    "method": null,
+    "routePrefix": "core.contacts",
+    "fields": [
+        {
+            "label": "First Name",
+            "name": "first_name",
+            "value": "",
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "disabled": false
+            }
+        },
+        {
+            "label": "Last Name",
+            "name": "last_name",
+            "value": null,
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "disabled": false
+            }
+        },
+        {
+            "label": "Email",
+            "name": "email",
+            "value": null,
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "disabled": false
+            }
+        },
+        {
+            "label": "Phone",
+            "name": "phone",
+            "value": null,
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "disabled": false
+            }
+        },
+        {
+            "label": "Observations",
+            "name": "obs",
+            "value": null,
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "disabled": false
+            }
+        },
+        {
+            "label": "Active",
+            "name": "is_active",
+            "value": false,
+            "meta": {
+                "type": "input",
+                "content": "checkbox"
+            }
+        }
+    ]
+}

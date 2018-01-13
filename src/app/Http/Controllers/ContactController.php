@@ -17,49 +17,33 @@ class ContactController extends Controller
         $this->service = $service;
     }
 
+    public function getCreateForm()
+    {
+        return $this->service->getCreateForm();
+    }
+
+    public function getEditForm(Contact $contact)
+    {
+        return $this->service->getEditForm($contact);
+    }
+
     public function list(Request $request)
     {
         return $this->service->list($request);
     }
 
-    public function store(Request $request)
+    public function store(ValidateContactRequest $request)
     {
-        $validator = $this->validateRequest($request);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'The form has errors',
-                'errors' => $validator->errors()->toArray(),
-            ], 422);
-        }
-
         return $this->service->store($request);
     }
 
-    public function update(Request $request, Contact $contact)
+    public function update(ValidateContactRequest $request, Contact $contact)
     {
-        $validator = $this->validateRequest($request);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'The form has errors',
-                'errors' => $validator->errors()->toArray(),
-            ], 422);
-        }
-
         return $this->service->update($request, $contact);
     }
 
     public function destroy(Contact $contact)
     {
         return $this->service->destroy($contact);
-    }
-
-    private function validateRequest(Request $request)
-    {
-        $rules = (new ValidateContactRequest())->rules();
-        $validator = \Validator::make($request->get('contact'), $rules);
-
-        return $validator;
     }
 }

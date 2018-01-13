@@ -4,12 +4,10 @@ use LaravelEnso\StructureManager\app\Classes\StructureMigration;
 
 class CreateStructureForContacts extends StructureMigration
 {
-    protected $permissionGroup = [
-        'name' => 'core.contacts', 'description' => 'Contacts group',
-    ];
-
     protected $permissions = [
         ['name' => 'core.contacts.index', 'description' => 'Contacts index', 'type' => 0, 'default' => false],
+        ['name' => 'core.contacts.create', 'description' => 'Get create form  for contacts', 'type' => 0, 'default' => false],
+        ['name' => 'core.contacts.edit', 'description' => 'Get edit form for contacts', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.update', 'description' => 'Update edited contact', 'type' => 1, 'default' => false],
         ['name' => 'core.contacts.store', 'description' => 'Store newly created contact', 'type' => 1, 'default' => false],
         ['name' => 'core.contacts.destroy', 'description' => 'Delete contact', 'type' => 1, 'default' => false],
@@ -17,6 +15,10 @@ class CreateStructureForContacts extends StructureMigration
         ['name' => 'core.contacts.initTable', 'description' => 'Init table for contacts', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.getTableData', 'description' => 'Get table data for contacts', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.exportExcel', 'description' => 'Export excel for contacts', 'type' => 0, 'default' => false],
+    ];
+
+    protected $permissionGroup = [
+        'name' => 'core.contacts', 'description' => 'Contacts group',
     ];
 
     protected $menu = [
