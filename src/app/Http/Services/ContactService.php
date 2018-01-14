@@ -55,7 +55,7 @@ class ContactService
     {
         $class = config('enso.contacts.contactables.'.$request->get('type'));
 
-        if (!$class) {
+        if (! $class) {
             throw new ContactException(__(
                 'Entity ":entity" does not exist in contacts.php config file',
                 ['entity' => $request->get('type')]
