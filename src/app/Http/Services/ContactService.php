@@ -5,6 +5,7 @@ namespace LaravelEnso\Contacts\App\Http\Services;
 use Illuminate\Http\Request;
 use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\FormBuilder\app\Classes\Form;
+use LaravelEnso\Contacts\app\Exceptions\ContactException;
 
 class ContactService
 {
@@ -54,10 +55,11 @@ class ContactService
     {
         $class = config('enso.contacts.contactables.'.$request->get('type'));
 
-        if (! $class) {
-            throw new \EnsoException(
-                __('Current entity does not exist in contacts.php config file').': '.$request->get('type')
-            );
+        if (!$class) {
+            throw new ContactException(__(
+                'Entity ":entity" does not exist in contacts.php config file',
+                ['entity' => $request->get('type')]
+            ));
         }
 
         return $class;

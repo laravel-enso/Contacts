@@ -3,7 +3,7 @@
 namespace LaravelEnso\Contacts\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelEnso\Helpers\Traits\IsActive;
+use LaravelEnso\Helpers\app\Traits\IsActive;
 use LaravelEnso\TrackWho\app\Traits\CreatedBy;
 
 class Contact extends Model
