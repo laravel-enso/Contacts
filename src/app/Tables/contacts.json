@@ -9,7 +9,7 @@
         "excel",
         {
             "type": "row",
-            "icon": "fa fa-pencil-square-o",
+            "icon": "fa fa-pencil",
             "class": "is-warning",
             "routeSuffix": "update",
             "event": "edit-contact"
