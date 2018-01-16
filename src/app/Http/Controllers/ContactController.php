@@ -17,14 +17,14 @@ class ContactController extends Controller
         $this->service = $service;
     }
 
-    public function getCreateForm()
+    public function create()
     {
-        return $this->service->getCreateForm();
+        return $this->service->create();
     }
 
-    public function getEditForm(Contact $contact)
+    public function edit(Contact $contact)
     {
-        return $this->service->getEditForm($contact);
+        return $this->service->edit($contact);
     }
 
     public function list(Request $request)

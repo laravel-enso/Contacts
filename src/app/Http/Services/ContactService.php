@@ -65,7 +65,7 @@ class ContactService
         return $class;
     }
 
-    public function getEditForm(Contact $contact)
+    public function edit(Contact $contact)
     {
         $editForm = (new Form($this->getFormPath()))
             ->edit($contact)
@@ -76,7 +76,7 @@ class ContactService
         return compact('editForm');
     }
 
-    public function getCreateForm()
+    public function create()
     {
         $createForm = (new Form($this->getFormPath()))
             ->create()

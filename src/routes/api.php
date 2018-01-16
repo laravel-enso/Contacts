@@ -13,14 +13,9 @@ Route::middleware(['web', 'auth', 'core'])
                 Route::get('exportExcel', 'ContactTableController@excel')
                     ->name('exportExcel');
 
-                Route::get('{contact}/edit', 'ContactController@getEditForm')
-                    ->name('edit');
-                Route::get('create', 'ContactController@getCreateForm')
-                    ->name('create');
-
                 Route::get('list', 'ContactController@list')
                     ->name('list');
             });
 
-        Route::resource('contacts', 'ContactController', ['except' => ['show', 'create', 'edit']]);
+        Route::resource('contacts', 'ContactController', ['except' => ['show']]);
     });
