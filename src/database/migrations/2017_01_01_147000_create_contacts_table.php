@@ -18,7 +18,7 @@ class CreateContactsTable extends Migration
             $table->string('obs')->nullable();
             $table->boolean('is_active');
             $table->integer('created_by')->unsigned();
-            $table->foreign('created_by')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
         });
     }
