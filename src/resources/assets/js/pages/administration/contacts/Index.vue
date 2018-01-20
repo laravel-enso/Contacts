@@ -44,7 +44,7 @@ export default {
             this.$refs.contacts.loading = true;
             axios.get(route('core.contacts.edit', contact.dtRowId, false)).then(({ data }) => {
                 this.$refs.contacts.loading = false;
-                this.form = data.editForm;
+                this.form = data.form;
             }).catch((error) => {
                 this.$refs.contacts.loading = false;
                 this.handleError(error);

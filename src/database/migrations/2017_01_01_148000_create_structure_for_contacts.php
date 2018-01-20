@@ -11,7 +11,6 @@ class CreateStructureForContacts extends StructureMigration
         ['name' => 'core.contacts.update', 'description' => 'Update edited contact', 'type' => 1, 'default' => false],
         ['name' => 'core.contacts.store', 'description' => 'Store newly created contact', 'type' => 1, 'default' => false],
         ['name' => 'core.contacts.destroy', 'description' => 'Delete contact', 'type' => 1, 'default' => false],
-        ['name' => 'core.contacts.list', 'description' => 'Get contacts for contactable', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.initTable', 'description' => 'Init table for contacts', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.getTableData', 'description' => 'Get table data for contacts', 'type' => 0, 'default' => false],
         ['name' => 'core.contacts.exportExcel', 'description' => 'Export excel for contacts', 'type' => 0, 'default' => false],

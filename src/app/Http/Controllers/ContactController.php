@@ -5,45 +5,44 @@ namespace LaravelEnso\Contacts\App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\Contacts\App\Http\Services\ContactService;
+use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
 
 class ContactController extends Controller
 {
-    private $service;
-
-    public function __construct(ContactService $service)
-    {
-        $this->service = $service;
-    }
-
-    public function create()
-    {
-        return $this->service->create();
-    }
-
-    public function edit(Contact $contact)
-    {
-        return $this->service->edit($contact);
-    }
-
-    public function list(Request $request)
+    public function index(Request $request)
     {
         return $this->service->list($request);
     }
 
-    public function store(ValidateContactRequest $request)
+    public function create(ContactForm $form)
     {
-        return $this->service->store($request);
+        return ['form' => $form->create()];
+    }
+
+    public function store(ValidateContactRequest $request, Contact $contact)
+    {
+        $contact->store($request->all(), $request->get('_params'));
+
+        return ['message' => __('Created Contact')];
+    }
+
+    public function edit(Contact $contact, ContactForm $form)
+    {
+        return ['form' => $form->edit($contact)];
     }
 
     public function update(ValidateContactRequest $request, Contact $contact)
     {
-        return $this->service->update($request, $contact);
+        $contact->update($request->all());
+
+        return ['message' => __(config('enso.labels.successfulOperation'))];
     }
 
     public function destroy(Contact $contact)
     {
-        return $this->service->destroy($contact);
+        $contact->delete();
+
+        return ['message' => __(config('enso.labels.successfulOperation'))];
     }
 }

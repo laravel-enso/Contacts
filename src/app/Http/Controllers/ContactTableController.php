@@ -15,7 +15,9 @@ class ContactTableController extends Controller
 
     public function query()
     {
-        return Contact::select(\DB::raw('id as dtRowId, first_name, last_name, phone, email, is_active,
-        	obs, is_active is_active_bool'));
+        return Contact::select(\DB::raw(
+            'id as "dtRowId", first_name, last_name, phone, email, is_active,
+            obs, is_active as is_active_bool'
+        ));
     }
 }

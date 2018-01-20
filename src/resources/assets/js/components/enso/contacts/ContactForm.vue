@@ -1,5 +1,6 @@
 <template>
-    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <transition enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut">
         <div class="modal is-active">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -7,11 +8,11 @@
                     @click="$emit('form-close')">
                 </a>
                 <vue-form
-                        class="box"
-                        @destroy="$emit('destroy')"
-                        @submit="$emit('submit')"
-                        :params="params"
-                        :data="form">
+                    class="box"
+                    @destroy="$emit('destroy')"
+                    @submit="$emit('submit')"
+                    :params="params"
+                    :data="form">
                 </vue-form>
             </div>
         </div>
