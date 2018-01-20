@@ -13,7 +13,7 @@ class Contact extends Model
 
     protected $fillable = [
         'contactable_id', 'contactable_type', 'first_name', 'last_name',
-        'phone', 'email', 'obs', 'is_active'
+        'phone', 'email', 'obs', 'is_active',
     ];
 
     protected $attributes = ['is_active' => false];

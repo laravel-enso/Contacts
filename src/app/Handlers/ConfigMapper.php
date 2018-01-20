@@ -17,7 +17,7 @@ class ConfigMapper
     {
         $contactable = config('enso.contacts.contactables.'.$this->type);
 
-        if (!$contactable) {
+        if (! $contactable) {
             throw new ContactConfigException(__(
                 'Entity :entity does not exist in enso/contacts.php config file',
                 ['entity' => $this->type]
