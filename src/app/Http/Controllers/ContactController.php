@@ -2,17 +2,17 @@
 
 namespace LaravelEnso\Contacts\App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
+use LaravelEnso\Contacts\app\Handlers\Collection;
 use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
 
 class ContactController extends Controller
 {
-    public function index(Request $request)
+    public function index(string $type, int $id)
     {
-        return $this->service->list($request);
+        return (new Collection($type, $id))->data();
     }
 
     public function create(ContactForm $form)

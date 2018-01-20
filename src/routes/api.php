@@ -13,9 +13,9 @@ Route::middleware(['web', 'auth', 'core'])
                 Route::get('exportExcel', 'ContactTableController@excel')
                     ->name('exportExcel');
 
-                Route::get('list', 'ContactController@list')
-                    ->name('list');
+                Route::get('index/{type}/{id}', 'ContactController@index')
+                    ->name('index');
             });
 
-        Route::resource('contacts', 'ContactController', ['except' => ['show']]);
+        Route::resource('contacts', 'ContactController', ['except' => ['show', 'index']]);
     });
