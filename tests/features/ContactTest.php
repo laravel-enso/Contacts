@@ -21,21 +21,18 @@ class ContactTest extends TestCase
     {
         parent::setUp();
 
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $this->signIn(User::first());
         $this->owner = Owner::first();
         $this->faker = Factory::create();
     }
 
     /** @test */
-    public function list()
+    public function index()
     {
         $contact = $this->createContact();
 
-        $this->call('GET', route('core.contacts.list', [], false), [
-            'id' => $this->owner->id,
-            'type' => 'owner',
-        ])->assertStatus(200)
+        $this->call('GET', route('core.contacts.index', ['owner', $this->owner->id], false))->assertStatus(200)
             ->assertJson([$contact->toArray()]);
     }
 
@@ -47,7 +44,7 @@ class ContactTest extends TestCase
         $this->post(route('core.contacts.store', [], false), $postParams)
             ->assertStatus(200);
 
-        $contact = Contact::whereFirstName($postParams['contact']['first_name'])->first();
+        $contact = Contact::whereFirstName($postParams['first_name'])->first();
 
         $this->assertNotNull($contact);
     }
@@ -58,9 +55,10 @@ class ContactTest extends TestCase
         $contact = $this->createContact();
         $contact->first_name = 'edited';
 
-        $this->patch(route('core.contacts.update', $contact->id, false), [
-            'contact' => $contact->toArray(),
-        ])->assertStatus(200);
+        $this->patch(
+            route('core.contacts.update', $contact->id, false),
+            $contact->toArray()
+        )->assertStatus(200);
 
         $this->assertEquals('edited', $contact->fresh()->first_name);
     }
@@ -79,8 +77,7 @@ class ContactTest extends TestCase
 
     private function createContact()
     {
-        $data = $this->postParams();
-        $contact = new Contact($data['contact']);
+        $contact = new Contact($this->postParams());
         $this->owner->contacts()->save($contact);
 
         return $contact->fresh();
@@ -89,15 +86,15 @@ class ContactTest extends TestCase
     private function postParams()
     {
         return [
-            'type' => 'owner',
-            'id' => $this->owner->id,
-            'contact' => [
-                'first_name' => $this->faker->firstName,
-                'last_name' => $this->faker->lastName,
-                'phone' => $this->faker->phoneNumber,
-                'email' => $this->faker->email,
-                'is_active' => 1,
+            '_params' => [
+                'type' => 'owner',
+                'id' => $this->owner->id,
             ],
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'phone' => $this->faker->phoneNumber,
+            'email' => $this->faker->email,
+            'is_active' => 1,
         ];
     }
 }
