@@ -1,6 +1,6 @@
 {
     "title": null,
-    "icon": "fa fa-address-card-o",
+    "icon": "fas fa-address-card",
     "columns": 2,
     "method": null,
     "routePrefix": "core.contacts",

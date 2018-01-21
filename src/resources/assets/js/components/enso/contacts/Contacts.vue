@@ -1,6 +1,6 @@
 <template>
 
-    <card icon="fa fa-address-card-o"
+    <card icon="fas fa-address-card"
         refresh search
         :title="title || __('Contacts')"
         :overlay="loading"
@@ -13,7 +13,7 @@
         <a slot="control-1" class="card-header-icon"
             @click="create()">
             <span class="icon is-small">
-                <i class="fa fa-plus-square"></i>
+                <i class="fas fa-plus-square"></i>
             </span>
         </a>
         <div class="has-padding-medium contacts-wrapper">

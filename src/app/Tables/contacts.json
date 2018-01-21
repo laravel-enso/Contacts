@@ -3,13 +3,13 @@
     "readSuffix": "getTableData",
     "writeSuffix": null,
     "name": "Contacts",
-    "icon": "fa fa-address-book-o",
+    "icon": "fas fa-address-book",
     "crtNo": true,
     "buttons": [
         "excel",
         {
             "type": "row",
-            "icon": "fa fa-pencil",
+            "icon": "fas fa-pencil-alt",
             "class": "is-warning",
             "routeSuffix": "update",
             "event": "edit-contact"

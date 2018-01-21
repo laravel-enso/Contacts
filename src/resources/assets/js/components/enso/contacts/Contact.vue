@@ -7,30 +7,30 @@
                 {{ contact.first_name }} {{ contact.last_name }}
                 <span class="tag is-pulled-right"
                         :class="contact.is_active ? 'is-success' : 'is-danger'">
-                    <i class="fa fa-check"
+                    <i class="fas fa-check"
                         v-if="contact.is_active">
                     </i>
-                    <i class="fa fa-times" v-else></i>
+                    <i class="fas fa-times" v-else></i>
                 </span>
             </p>
             <p>
                 <span class="icon is-small"
                     v-if="contact.email">
-                    <i class="fa fa-envelope"></i>
+                    <i class="fas fa-envelope"></i>
                 </span>
                 {{ contact.email }}
             </p>
             <p>
                 <span class="icon is-small"
                     v-if="contact.phone">
-                    <i class="fa fa-phone"></i>
+                    <i class="fas fa-phone"></i>
                 </span>
                 {{ contact.phone }}
             </p>
             <p>
                 <span class="icon is-small"
                     v-if="contact.obs">
-                    <i class="fa fa-sticky-note "></i>
+                    <i class="fas fa-sticky-note "></i>
                 </span>
                 {{ contact.obs }}
             </p>
