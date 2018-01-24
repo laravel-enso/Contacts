@@ -4,12 +4,8 @@
             <p class="title is-5">
                 {{ contact.first_name }} {{ contact.last_name }}
                 <span class="tag is-success is-pulled-right"
-                    v-if="contact.is_active">
-                    <fa icon="check"></fa>
-                </span>
-                <span class="tag is-danger is-pulled-right"
-                    v-else>
-                    <fa icon="times"></fa>
+                    :class="contact.is_active ? 'is-success' : 'is-danger'">
+                    <fa :icon="contact.is_active ? 'check' : 'times'"></fa>
                 </span>
             </p>
             <p>
