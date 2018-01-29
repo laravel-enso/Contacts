@@ -17,8 +17,8 @@ Contacts dependency for [Laravel Enso](https://github.com/laravel-enso/Enso).
 - allows the management of contact persons, attached to other entities, such as owners
 - uses a polymorphic relationship for flexibility when attaching
 - contacts can be disabled while still keeping them, for reference
-- comes with a `Contacts.vue` VueJS component meant to be included anywhere
-- uses the [VueComponents](https://github.com/laravel-enso/VueComponents) package in order to load its VueJS components
+- comes with a `Contacts.vue` VueJS component meant to be included anywhere, and an index page to list all contacts
+- uses the [VueComponents](https://github.com/laravel-enso/VueComponents) package in order to load its VueJS dependencies
 
 
 ### Installation steps
@@ -43,16 +43,15 @@ The component is already included in the Enso install and should not require any
     
 ### Options
 The `Contacts.vue` component can be used anywhere, can be integrated into any other component or page, and takes the following parameters:
-- `type` - string, the entity type, set in the configuration file | (required)
-- `id` - the id of the entity | (required)
+- `id` - the id of the entity | required
+- `type` - string, the entity type, set in the configuration file | required
 - `open` - boolean, flag which, if true, makes the component start in the open state | default `false` | (optional)
-- `title` - title for the component | default 'Contacts' | (optional)
-
+- `title` - string, title for the component | default 'Contacts' | (optional)
     
 ### Publishes
 
 - `php artisan vendor:publish --tag=contacts-config` - the configuration file
-- `php artisan vendor:publish --tag=vue-components` - the VueJS components
+- `php artisan vendor:publish --tag=contacts-assets` - the VueJS components
 - `php artisan vendor:publish --tag=enso-assets` - a common alias for when wanting to update the VueJS component,
 once a newer version is released, can be used with the `--force` flag
 - `php artisan vendor:publish --tag=enso-config` - a common alias for when wanting to update the config,
