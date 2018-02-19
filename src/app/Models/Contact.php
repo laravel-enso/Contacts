@@ -20,7 +20,7 @@ class Contact extends Model
     {
         parent::__construct($attributes);
 
-        $this->table = config('contacts.table') ?: 'contacts';
+        $this->connection = config('contacts.connection') ?: 'mysql';
     }
 
     public function user()
