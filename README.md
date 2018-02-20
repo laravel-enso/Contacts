@@ -3,7 +3,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c859dad259f4455a21c7f22d2877917)](https://www.codacy.com/app/mihai-ocneanu/contact-persons?utm_source=github.com&utm_medium=referral&utm_content=laravel-enso/contact-persons&utm_campaign=badger)
 [![StyleCI](https://styleci.io/repos/88868747/shield?branch=master)](https://styleci.io/repos/88868747)
-[![License](https://poser.pugx.org/laravel-enso/contacts/license)](https://https://packagist.org/packages/laravel-enso/contacts)
+[![License](https://poser.pugx.org/laravel-enso/contacts/license)](https://packagist.org/packages/laravel-enso/contacts)
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contacts/downloads)](https://packagist.org/packages/laravel-enso/contacts)
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/contacts/version)](https://packagist.org/packages/laravel-enso/contacts)
 <!--/h-->
