@@ -12,6 +12,8 @@ class Contact extends Model
 
     protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'obs', 'is_active'];
 
+    protected $appends = ['label'];
+
     protected $attributes = ['is_active' => false];
 
     protected $casts = ['is_active' => 'boolean'];
@@ -31,5 +33,10 @@ class Contact extends Model
     public function contactable()
     {
         return $this->morphTo();
+    }
+
+    public function getLabelAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }
