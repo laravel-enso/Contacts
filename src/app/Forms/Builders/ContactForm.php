@@ -27,7 +27,7 @@ class ContactForm
     {
         return $this->form
             ->title('Edit')
-            ->actions(['update', 'destroy'])
+            ->actions(['update'])
             ->edit($contact);
     }
 }
