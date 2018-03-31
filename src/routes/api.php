@@ -12,10 +12,7 @@ Route::middleware(['web', 'auth', 'core'])
                     ->name('getTableData');
                 Route::get('exportExcel', 'ContactTableController@excel')
                     ->name('exportExcel');
-
-                Route::get('index/{type}/{id}', 'ContactController@index')
-                    ->name('index');
             });
 
-        Route::resource('contacts', 'ContactController', ['except' => ['show', 'index']]);
+        Route::resource('contacts', 'ContactController', ['except' => ['show']]);
     });
