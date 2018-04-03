@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelEnso\Contacts\App\Http\Controllers;
+namespace LaravelEnso\Contacts\app\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
