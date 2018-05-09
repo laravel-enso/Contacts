@@ -21,7 +21,7 @@ class ContactTest extends TestCase
     {
         parent::setUp();
 
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $this->signIn(User::first());
         $this->owner = Owner::first();
         $this->faker = Factory::create();
@@ -32,7 +32,10 @@ class ContactTest extends TestCase
     {
         $contact = $this->createContact();
 
-        $this->call('GET', route('core.contacts.index', ['owner', $this->owner->id], false))->assertStatus(200)
+        $this->get(route('core.contacts.index', [
+            'type' => 'owner', 'id' => $this->owner->id
+        ], false))
+            ->assertStatus(200)
             ->assertJson([$contact->toArray()]);
     }
 
