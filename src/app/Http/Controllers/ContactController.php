@@ -5,7 +5,6 @@ namespace LaravelEnso\Contacts\app\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\Contacts\app\Handlers\ConfigMapper;
 use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
 
@@ -13,10 +12,8 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        return Contact::whereContactableId($request->get('id'))
-            ->whereContactableType(
-                (new ConfigMapper($request->get('type')))->class()
-            )->orderBy('created_at', 'desc')
+        return Contact::for($request->only(['id', 'type']))
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 
@@ -29,7 +26,7 @@ class ContactController extends Controller
     {
         $contact->store($request->all(), $request->get('_params'));
 
-        return ['message' => __('Created Contact')];
+        return ['message' => __('The contact was created successfully')];
     }
 
     public function edit(Contact $contact, ContactForm $form)
@@ -41,13 +38,13 @@ class ContactController extends Controller
     {
         $contact->update($request->all());
 
-        return ['message' => __(config('enso.labels.successfulOperation'))];
+        return ['message' => __('The contact was updated successfully')];
     }
 
     public function destroy(Contact $contact)
     {
         $contact->delete();
 
-        return ['message' => __(config('enso.labels.successfulOperation'))];
+        return ['message' => __('The contact was deleted successfully')];
     }
 }

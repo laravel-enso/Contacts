@@ -46,4 +46,12 @@ class Contact extends Model
             ]
         );
     }
+
+    public function scopeFor($query, array $request)
+    {
+        $query->whereContactableId($request['id'])
+            ->whereContactableType(
+                (new ConfigMapper($request['type']))->class()
+            );
+    }
 }
