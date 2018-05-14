@@ -10,7 +10,9 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
+
             $table->morphs('contactable');
+
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone')->nullable();
@@ -18,7 +20,9 @@ class CreateContactsTable extends Migration
             $table->string('obs')->nullable();
             $table->boolean('is_active');
             $table->integer('created_by')->unsigned();
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')
+                ->on('users');
+
             $table->timestamps();
         });
     }

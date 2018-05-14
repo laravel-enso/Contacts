@@ -5,7 +5,7 @@ namespace LaravelEnso\Contacts\app\Models;
 use Illuminate\Database\Eloquent\Model;
 use LaravelEnso\Helpers\app\Traits\IsActive;
 use LaravelEnso\TrackWho\app\Traits\CreatedBy;
-use LaravelEnso\Contacts\app\Handlers\ConfigMapper;
+use LaravelEnso\Contacts\app\Classes\ConfigMapper;
 
 class Contact extends Model
 {
