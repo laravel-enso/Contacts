@@ -1,6 +1,5 @@
 <?php
 
-use App\Owner;
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,7 +22,7 @@ class ContactTest extends TestCase
 
         // $this->withoutExceptionHandling();
         $this->signIn(User::first());
-        $this->owner = Owner::first();
+        $this->owner = config('enso.config.ownerModel')::first();
         $this->faker = Factory::create();
     }
 
