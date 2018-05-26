@@ -4,16 +4,15 @@ namespace LaravelEnso\Contacts\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use LaravelEnso\Helpers\app\Traits\IsActive;
-use LaravelEnso\TrackWho\app\Traits\CreatedBy;
 use LaravelEnso\Contacts\app\Classes\ConfigMapper;
 
 class Contact extends Model
 {
-    use IsActive, CreatedBy;
+    use IsActive;
 
     protected $fillable = [
         'contactable_id', 'contactable_type', 'first_name', 'last_name',
-        'phone', 'email', 'obs', 'is_active',
+        'phone', 'email', 'position', 'obs', 'is_active',
     ];
 
     protected $attributes = ['is_active' => false];
@@ -25,11 +24,6 @@ class Contact extends Model
         parent::__construct($attributes);
 
         $this->table = config('enso.contacts.table') ?: 'contacts';
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(config('auth.providers.users.model'), 'created_by', 'id');
     }
 
     public function contactable()
