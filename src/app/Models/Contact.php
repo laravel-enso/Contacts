@@ -19,13 +19,6 @@ class Contact extends Model
 
     protected $casts = ['is_active' => 'boolean'];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->table = config('enso.contacts.table') ?: 'contacts';
-    }
-
     public function contactable()
     {
         return $this->morphTo();
@@ -35,17 +28,19 @@ class Contact extends Model
     {
         $this->create(
             $attributes + [
-                'contactable_id' => $params['id'],
-                'contactable_type' => (new ConfigMapper($params['type']))->class(),
+                'contactable_id' => $params['contactable_id'],
+                'contactable_type' => (new ConfigMapper($params['contactable_type']))
+                    ->class(),
             ]
         );
     }
 
     public function scopeFor($query, array $request)
     {
-        $query->whereContactableId($request['id'])
+        $query->whereContactableId($request['contactable_id'])
             ->whereContactableType(
-                (new ConfigMapper($request['type']))->class()
+                (new ConfigMapper($request['contactable_type']))
+                    ->class()
             );
     }
 }

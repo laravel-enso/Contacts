@@ -12,8 +12,9 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        return Contact::for($request->only(['id', 'type']))
-            ->orderBy('created_at', 'desc')
+        return Contact::for($request->only([
+                'contactable_id', 'contactable_type'
+            ]))->orderBy('created_at', 'desc')
             ->get();
     }
 
@@ -24,9 +25,14 @@ class ContactController extends Controller
 
     public function store(ValidateContactRequest $request, Contact $contact)
     {
-        $contact->store($request->all(), $request->get('_params'));
+        $contact->store(
+            $request->all(),
+            $request->get('_params')
+        );
 
-        return ['message' => __('The contact was created successfully')];
+        return [
+            'message' => __('The contact was created successfully')
+        ];
     }
 
     public function edit(Contact $contact, ContactForm $form)
@@ -38,13 +44,17 @@ class ContactController extends Controller
     {
         $contact->update($request->all());
 
-        return ['message' => __('The contact was updated successfully')];
+        return [
+            'message' => __('The contact was updated successfully')
+        ];
     }
 
     public function destroy(Contact $contact)
     {
         $contact->delete();
 
-        return ['message' => __('The contact was deleted successfully')];
+        return [
+            'message' => __('The contact was deleted successfully')
+        ];
     }
 }
