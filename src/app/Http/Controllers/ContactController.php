@@ -13,7 +13,7 @@ class ContactController extends Controller
     public function index(Request $request)
     {
         return Contact::for($request->only([
-                'contactable_id', 'contactable_type'
+                'contactable_id', 'contactable_type',
             ]))->orderBy('created_at', 'desc')
             ->get();
     }
@@ -31,7 +31,7 @@ class ContactController extends Controller
         );
 
         return [
-            'message' => __('The contact was created successfully')
+            'message' => __('The contact was created successfully'),
         ];
     }
 
@@ -45,7 +45,7 @@ class ContactController extends Controller
         $contact->update($request->all());
 
         return [
-            'message' => __('The contact was updated successfully')
+            'message' => __('The contact was updated successfully'),
         ];
     }
 
@@ -54,7 +54,7 @@ class ContactController extends Controller
         $contact->delete();
 
         return [
-            'message' => __('The contact was deleted successfully')
+            'message' => __('The contact was deleted successfully'),
         ];
     }
 }
