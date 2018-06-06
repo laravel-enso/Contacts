@@ -13,9 +13,18 @@ class AppServiceProvider extends ServiceProvider
             DropCreatedBy::class,
         ]);
 
+        $this->loadDependencies();
+        $this->publishesAll();
+    }
+
+    private function loadDependencies()
+    {
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+    }
 
+    private function publishesAll()
+    {
         $this->publishes([
             __DIR__.'/config' => config_path('enso'),
         ], 'contacts-config');
