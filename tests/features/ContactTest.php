@@ -32,7 +32,7 @@ class ContactTest extends TestCase
         $contact = $this->createContact();
 
         $this->get(route('core.contacts.index', [
-            'type' => 'owner', 'id' => $this->owner->id
+            'contactable_type' => 'owner', 'contactable_id' => $this->owner->id
         ], false))
             ->assertStatus(200)
             ->assertJson([$contact->toArray()]);
@@ -89,8 +89,8 @@ class ContactTest extends TestCase
     {
         return [
             '_params' => [
-                'type' => 'owner',
-                'id' => $this->owner->id,
+                'contactable_type' => 'owner',
+                'contactable_id' => $this->owner->id,
             ],
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
