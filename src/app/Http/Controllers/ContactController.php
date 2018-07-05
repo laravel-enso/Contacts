@@ -26,7 +26,7 @@ class ContactController extends Controller
     public function store(ValidateContactRequest $request, Contact $contact)
     {
         $contact->store(
-            $request->all(),
+            $request->validated(),
             $request->get('_params')
         );
 
@@ -42,7 +42,7 @@ class ContactController extends Controller
 
     public function update(ValidateContactRequest $request, Contact $contact)
     {
-        $contact->update($request->all());
+        $contact->update($request->validated());
 
         return [
             'message' => __('The contact was updated successfully'),
