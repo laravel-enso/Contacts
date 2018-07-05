@@ -18,6 +18,9 @@ class ValidateContactRequest extends FormRequest
             'last_name' => 'required|max:50',
             'email' => 'email|nullable',
             'phone' => 'nullable',
+            'position' => 'nullable',
+            'obs' => 'nullable',
+            'is_active' => 'boolean',
         ];
     }
 }

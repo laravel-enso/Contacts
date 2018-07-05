@@ -46,8 +46,8 @@
                 "disabled": false
             }
         }, {
-            "label": "Observations",
-            "name": "obs",
+            "label": "Position",
+            "name": "position",
             "value": null,
             "meta": {
                 "custom": false,
@@ -62,6 +62,17 @@
             "meta": {
                 "type": "input",
                 "content": "checkbox"
+            }
+        }]
+    }, {
+        "columns": 1,
+        "fields": [{
+            "label": "Observations",
+            "name": "obs",
+            "value": null,
+            "meta": {
+                "type": "textarea",
+                "rows": 3
             }
         }]
     }]

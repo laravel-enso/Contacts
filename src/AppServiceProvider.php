@@ -3,16 +3,11 @@
 namespace LaravelEnso\Contacts;
 
 use Illuminate\Support\ServiceProvider;
-use LaravelEnso\Contacts\app\Commands\DropCreatedBy;
 
 class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->commands([
-            DropCreatedBy::class,
-        ]);
-
         $this->loadDependencies();
         $this->publishesAll();
     }
