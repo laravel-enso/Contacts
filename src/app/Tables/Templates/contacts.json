@@ -1,7 +1,6 @@
 {
     "routePrefix": "core.contacts",
     "readSuffix": "getTableData",
-    "writeSuffix": null,
     "name": "Contacts",
     "icon": "address-book",
     "crtNo": true,
