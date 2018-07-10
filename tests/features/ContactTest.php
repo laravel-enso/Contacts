@@ -2,17 +2,19 @@
 
 use App\User;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+use Illuminate\Database\Eloquent\Model;
 use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\TestHelper\app\Traits\SignIn;
+use LaravelEnso\Contacts\app\Traits\Contactable;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use LaravelEnso\TestHelper\app\Traits\TestDataTable;
-use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
     use RefreshDatabase, SignIn, TestDataTable;
 
-    private $owner;
+    private $contactTestModel;
     private $faker;
     private $prefix = 'core.contacts';
 
@@ -22,8 +24,12 @@ class ContactTest extends TestCase
 
         // $this->withoutExceptionHandling();
         $this->signIn(User::first());
-        $this->owner = config('enso.config.ownerModel')::first();
         $this->faker = Factory::create();
+
+        $this->createContactTestModelsTable();
+        $this->contactTestModel = $this->createContactTestModel();
+
+        config(['enso.contacts.contactables' => ['contactTestModel' => 'ContactTestModel']]);
     }
 
     /** @test */
@@ -32,7 +38,7 @@ class ContactTest extends TestCase
         $contact = $this->createContact();
 
         $this->get(route('core.contacts.index', [
-            'contactable_type' => 'owner', 'contactable_id' => $this->owner->id
+            'contactable_type' => 'contactTestModel', 'contactable_id' => $this->contactTestModel->id
         ], false))
             ->assertStatus(200)
             ->assertJson([$contact->toArray()]);
@@ -80,7 +86,7 @@ class ContactTest extends TestCase
     private function createContact()
     {
         $contact = new Contact($this->postParams());
-        $this->owner->contacts()->save($contact);
+        $this->contactTestModel->contacts()->save($contact);
 
         return $contact->fresh();
     }
@@ -89,8 +95,8 @@ class ContactTest extends TestCase
     {
         return [
             '_params' => [
-                'contactable_type' => 'owner',
-                'contactable_id' => $this->owner->id,
+                'contactable_type' => 'contactTestModel',
+                'contactable_id' => $this->contactTestModel->id,
             ],
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
@@ -99,4 +105,25 @@ class ContactTest extends TestCase
             'is_active' => 1,
         ];
     }
+
+    private function createContactTestModelsTable()
+    {
+        Schema::create('contact_test_models', function ($table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+    }
+
+    private function createContactTestModel()
+    {
+        return ContactTestModel::create(['name' => 'contactable']);
+    }
+}
+
+class ContactTestModel extends Model
+{
+    use Contactable;
+
+    protected $fillable = ['name'];
 }
