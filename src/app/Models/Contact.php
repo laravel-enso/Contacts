@@ -5,10 +5,11 @@ namespace LaravelEnso\Contacts\app\Models;
 use Illuminate\Database\Eloquent\Model;
 use LaravelEnso\Helpers\app\Traits\IsActive;
 use LaravelEnso\Contacts\app\Classes\ConfigMapper;
+use LaravelEnso\ActivityLog\app\Traits\LogActivity;
 
 class Contact extends Model
 {
-    use IsActive;
+    use IsActive, LogActivity;
 
     protected $fillable = [
         'contactable_id', 'contactable_type', 'first_name', 'last_name',
@@ -19,9 +20,20 @@ class Contact extends Model
 
     protected $casts = ['is_active' => 'boolean'];
 
+    protected $loggableLabel = 'fullName';
+
+    protected $loggable = [
+        'first_name', 'last_name', 'phone', 'email', 'position', 'is_active' => 'active state'
+    ];
+
     public function contactable()
     {
         return $this->morphTo();
+    }
+
+    public function getFullNameAttribute()
+    {
+        return trim($this->first_name.' '.$this->last_name);
     }
 
     public function store(array $attributes, array $params)
