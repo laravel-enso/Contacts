@@ -55,4 +55,9 @@ class Contact extends Model
                     ->class()
             );
     }
+
+    public function getLoggableMorph()
+    {
+        return config('enso.contacts.loggableMorph');
+    }
 }
