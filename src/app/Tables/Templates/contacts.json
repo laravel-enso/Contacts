@@ -1,15 +1,13 @@
 {
     "routePrefix": "core.contacts",
     "readSuffix": "getTableData",
-    "name": "Contacts",
-    "icon": "address-book",
     "crtNo": true,
     "buttons": [
         "excel",
         {
             "type": "row",
             "icon": "pencil-alt",
-            "class": "is-warning",
+            "class": "is-row-button",
             "routeSuffix": "update",
             "event": "edit-contact"
         },
