@@ -2,28 +2,10 @@
 
 namespace LaravelEnso\Contacts\app\Classes;
 
-use LaravelEnso\Contacts\app\Exceptions\ContactConfigException;
+use LaravelEnso\Helpers\app\Classes\MorphableConfigMapper;
 
-class ConfigMapper
+class ConfigMapper extends MorphableConfigMapper
 {
-    private $type;
-
-    public function __construct(string $type)
-    {
-        $this->type = $type;
-    }
-
-    public function class()
-    {
-        $contactable = config('enso.contacts.contactables.'.$this->type);
-
-        if (!$contactable) {
-            throw new ContactConfigException(__(
-                'Entity :entity does not exist in enso/contacts.php config file',
-                ['entity' => $this->type]
-            ));
-        }
-
-        return $contactable;
-    }
+    protected $configPrefix = 'enso.contacts';
+    protected $morphableKey = 'contactables';
 }
