@@ -42,7 +42,7 @@ class Contact extends Model
             $attributes + [
                 'contactable_id' => $params['contactable_id'],
                 'contactable_type' => (new ConfigMapper($params['contactable_type']))
-                    ->model(),
+                    ->class(),
             ]
         );
     }
@@ -52,7 +52,7 @@ class Contact extends Model
         $query->whereContactableId($request['contactable_id'])
             ->whereContactableType(
                 (new ConfigMapper($request['contactable_type']))
-                    ->model()
+                    ->class()
             );
     }
 

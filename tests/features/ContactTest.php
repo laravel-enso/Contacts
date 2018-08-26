@@ -23,6 +23,8 @@ class ContactTest extends TestCase
         parent::setUp();
 
         // $this->withoutExceptionHandling();
+
+        $this->seed();
         $this->signIn(User::first());
         $this->faker = Factory::create();
 
