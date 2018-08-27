@@ -56,6 +56,11 @@ class Contact extends Model
             );
     }
 
+    public function scopeOrdered($query)
+    {
+        $query->orderBy('created_at', 'desc');
+    }
+
     public function getLoggableMorph()
     {
         return config('enso.contacts.loggableMorph');

@@ -43,7 +43,7 @@ class ContactTest extends TestCase
             'contactable_type' => 'contactTestModel', 'contactable_id' => $this->contactTestModel->id
         ], false))
             ->assertStatus(200)
-            ->assertJson([$contact->toArray()]);
+            ->assertJsonFragment(['id' => $contact->id]);
     }
 
     /** @test */

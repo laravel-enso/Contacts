@@ -8,17 +8,17 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadDependencies();
-        $this->publishesAll();
+        $this->load();
+        $this->publish();
     }
 
-    private function loadDependencies()
+    private function load()
     {
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->loadRoutesFrom(__DIR__.'/routes/api.php');
     }
 
-    private function publishesAll()
+    private function publish()
     {
         $this->publishes([
             __DIR__.'/config' => config_path('enso'),

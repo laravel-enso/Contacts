@@ -19,7 +19,7 @@ class ContactForm
     public function create()
     {
         return $this->form
-            ->title('Insert')
+            ->title('Create')
             ->create();
     }
 
