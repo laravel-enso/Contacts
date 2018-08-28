@@ -4,8 +4,8 @@ namespace LaravelEnso\Contacts\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\Contacts\app\Http\Resources\Contact as Resource;
 use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
+use LaravelEnso\Contacts\app\Http\Resources\Contact as Resource;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
 
 class ContactController extends Controller
