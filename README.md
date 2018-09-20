@@ -1,7 +1,7 @@
 <!--h-->
 # Contacts
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c859dad259f4455a21c7f22d2877917)](https://www.codacy.com/app/mihai-ocneanu/contact-persons?utm_source=github.com&utm_medium=referral&utm_content=laravel-enso/contact-persons&utm_campaign=badger)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3168fbb0e16944bfb740ed07f4a9ba19)](https://www.codacy.com/app/laravel-enso/Contacts?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=laravel-enso/Contacts&amp;utm_campaign=Badge_Grade)
 [![StyleCI](https://styleci.io/repos/88868747/shield?branch=master)](https://styleci.io/repos/88868747)
 [![License](https://poser.pugx.org/laravel-enso/contacts/license)](https://packagist.org/packages/laravel-enso/contacts)
 [![Total Downloads](https://poser.pugx.org/laravel-enso/contacts/downloads)](https://packagist.org/packages/laravel-enso/contacts)
