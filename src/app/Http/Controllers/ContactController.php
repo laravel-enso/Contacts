@@ -2,14 +2,17 @@
 
 namespace LaravelEnso\Contacts\app\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
 use LaravelEnso\Contacts\app\Http\Resources\Contact as Resource;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
 
 class ContactController extends Controller
 {
+    use ValidatesRequests;
+
     public function index(ValidateContactRequest $request)
     {
         return Resource::collection(
