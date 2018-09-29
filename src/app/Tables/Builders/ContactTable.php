@@ -13,7 +13,7 @@ class ContactTable extends Table
     {
         return Contact::select(\DB::raw(
             'id as "dtRowId", first_name, last_name, phone, email,
-            position, is_active, is_active as is_active_bool'
+            position, is_active, is_active as is_active_bool, created_at'
         ));
     }
 }

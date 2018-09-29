@@ -43,5 +43,10 @@
         "name": "is_active",
         "data": "contacts.is_active",
         "meta": ["boolean"]
+    }, {
+        "label": "Created At",
+        "name": "created_at",
+        "data": "contacts.created_at",
+        "meta": ["date"]
     }]
 }
