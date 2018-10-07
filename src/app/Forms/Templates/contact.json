@@ -1,6 +1,6 @@
 {
     "title": null,
-    "icon": "address-card",
+    "icon": "address-book",
     "method": null,
     "routePrefix": "core.contacts",
     "sections": [{
@@ -67,12 +67,32 @@
     }, {
         "columns": 1,
         "fields": [{
-            "label": "Observations",
+            "label": "Notes",
             "name": "obs",
             "value": null,
             "meta": {
                 "type": "textarea",
                 "rows": 3
+            }
+        }, {
+            "label": "",
+            "name": "contactable_id",
+            "value": null,
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "hidden": true
+            }
+        }, {
+            "label": "",
+            "name": "contactable_type",
+            "value": null,
+            "meta": {
+                "custom": false,
+                "type": "input",
+                "content": "text",
+                "hidden": true
             }
         }]
     }]

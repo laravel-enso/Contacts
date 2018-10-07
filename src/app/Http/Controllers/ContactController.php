@@ -4,16 +4,14 @@ namespace LaravelEnso\Contacts\app\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use LaravelEnso\Contacts\app\Models\Contact;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
 use LaravelEnso\Contacts\app\Http\Resources\Contact as Resource;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
+use LaravelEnso\Contacts\app\Http\Requests\ValidateContactIndexRequest;
 
 class ContactController extends Controller
 {
-    use ValidatesRequests;
-
-    public function index(ValidateContactRequest $request)
+    public function index(ValidateContactIndexRequest $request)
     {
         return Resource::collection(
             Contact::ordered()
@@ -28,12 +26,9 @@ class ContactController extends Controller
         return ['form' => $form->create()];
     }
 
-    public function store(ValidateContactRequest $request, Contact $contact)
+    public function store(ValidateContactRequest $request)
     {
-        $contact->store(
-            $request->validated(),
-            $request->get('_params')
-        );
+        Contact::create($request->validated());
 
         return [
             'message' => __('The contact was created successfully'),

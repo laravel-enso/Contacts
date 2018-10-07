@@ -13,19 +13,16 @@ class ValidateContactRequest extends FormRequest
 
     public function rules()
     {
-        return $this->method() === 'GET'
-            ? [
-                'contactable_id' => 'required',
-                'contactable_type' => 'required',
-            ]
-            : [
-                'first_name' => 'required|max:50',
-                'last_name' => 'required|max:50',
-                'email' => 'email|nullable',
-                'phone' => 'nullable',
-                'position' => 'nullable',
-                'obs' => 'nullable',
-                'is_active' => 'boolean',
-            ];
+        return [
+            'contactable_id' => 'required',
+            'contactable_type' => 'required|string',
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+            'email' => 'email|nullable',
+            'phone' => 'nullable',
+            'position' => 'nullable',
+            'obs' => 'nullable',
+            'is_active' => 'boolean',
+        ];
     }
 }

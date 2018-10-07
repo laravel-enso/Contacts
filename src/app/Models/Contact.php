@@ -3,13 +3,12 @@
 namespace LaravelEnso\Contacts\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelEnso\Helpers\app\Traits\IsActive;
-use LaravelEnso\Contacts\app\Classes\ConfigMapper;
-use LaravelEnso\ActivityLog\app\Traits\LogActivity;
+use LaravelEnso\Helpers\app\Traits\ActiveState;
+use LaravelEnso\ActivityLog\app\Traits\LogsActivity;
 
 class Contact extends Model
 {
-    use IsActive, LogActivity;
+    use ActiveState, LogsActivity;
 
     protected $fillable = [
         'contactable_id', 'contactable_type', 'first_name', 'last_name',
@@ -36,24 +35,10 @@ class Contact extends Model
         return trim($this->first_name.' '.$this->last_name);
     }
 
-    public function store(array $attributes, array $params)
+    public function scopeFor($query, array $params)
     {
-        $this->create(
-            $attributes + [
-                'contactable_id' => $params['contactable_id'],
-                'contactable_type' => (new ConfigMapper($params['contactable_type']))
-                    ->class(),
-            ]
-        );
-    }
-
-    public function scopeFor($query, array $request)
-    {
-        $query->whereContactableId($request['contactable_id'])
-            ->whereContactableType(
-                (new ConfigMapper($request['contactable_type']))
-                    ->class()
-            );
+        $query->whereContactableId($params['contactable_id'])
+            ->whereContactableType($params['contactable_type']);
     }
 
     public function scopeOrdered($query)

@@ -1,22 +1,20 @@
 <?php
 
-use LaravelEnso\Core\app\Models\User;
-use Faker\Factory;
 use Tests\TestCase;
+use LaravelEnso\Core\app\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use LaravelEnso\Contacts\app\Models\Contact;
-use LaravelEnso\TestHelper\app\Traits\SignIn;
 use LaravelEnso\Contacts\app\Traits\Contactable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use LaravelEnso\TestHelper\app\Traits\TestDataTable;
+use LaravelEnso\FormBuilder\app\TestTraits\CreateForm;
+use LaravelEnso\VueDatatable\app\Traits\Tests\Datatable;
 
 class ContactTest extends TestCase
 {
-    use RefreshDatabase, SignIn, TestDataTable;
+    use CreateForm, Datatable, RefreshDatabase;
 
-    private $contactTestModel;
-    private $faker;
-    private $prefix = 'core.contacts';
+    private $permissionGroup = 'core.contacts';
+    private $testModel;
 
     protected function setUp()
     {
@@ -24,102 +22,88 @@ class ContactTest extends TestCase
 
         // $this->withoutExceptionHandling();
 
-        $this->seed();
-        $this->signIn(User::first());
-        $this->faker = Factory::create();
+        $this->seed()
+            ->actingAs(User::first());
 
-        $this->createContactTestModelsTable();
-        $this->contactTestModel = $this->createContactTestModel();
-
-        config(['enso.contacts.contactables' => ['contactTestModel' => 'ContactTestModel']]);
+        $this->model = $this->model();
+        $this->testModel = factory(Contact::class)
+            ->make([
+                'contactable_id' => $this->model->id,
+                'contactable_type' => get_class($this->model),
+            ]);
     }
 
     /** @test */
-    public function index()
+    public function can_get_contacts_index()
     {
-        $contact = $this->createContact();
+        $this->testModel->save();
 
         $this->get(route('core.contacts.index', [
-            'contactable_type' => 'contactTestModel', 'contactable_id' => $this->contactTestModel->id
+            'contactable_type' => get_class($this->model),
+            'contactable_id' => $this->model->id
         ], false))
             ->assertStatus(200)
-            ->assertJsonFragment(['id' => $contact->id]);
+            ->assertJsonFragment(['id' => $this->model->id]);
     }
 
     /** @test */
-    public function store()
+    public function can_store_contact()
     {
-        $postParams = $this->postParams();
+        $this->post(
+            route('core.contacts.store', [], false),
+            $this->testModel->toArray() + [
+                '_params' => [
+                'contactable_id' => $this->model->id,
+                'contactable_type' => get_class($this->model),
+            ]]
+        )->assertStatus(200);
 
-        $this->post(route('core.contacts.store', [], false), $postParams)
-            ->assertStatus(200);
-
-        $contact = Contact::whereFirstName($postParams['first_name'])->first();
+        $contact = Contact::whereFirstName($this->testModel->first_name)
+            ->first();
 
         $this->assertNotNull($contact);
     }
 
     /** @test */
-    public function update()
+    public function can_update_contact()
     {
-        $contact = $this->createContact();
-        $contact->first_name = 'edited';
+        $this->testModel->save();
+        $this->testModel->first_name = 'edited';
 
         $this->patch(
-            route('core.contacts.update', $contact->id, false),
-            $contact->toArray()
+            route('core.contacts.update', $this->testModel->id, false),
+            $this->testModel->toArray()
         )->assertStatus(200);
 
-        $this->assertEquals('edited', $contact->fresh()->first_name);
+        $this->assertEquals('edited', $this->testModel->fresh()->first_name);
     }
 
     /** @test */
-    public function destroy()
+    public function can_destroy_contact()
     {
-        $contact = $this->createContact();
+        $this->testModel->save();
 
-        $this->delete(route('core.contacts.destroy', $contact->id, false))
+        $this->delete(route('core.contacts.destroy', $this->testModel->id, false))
             ->assertStatus(200)
             ->assertJsonStructure(['message']);
 
-        $this->assertNull($contact->fresh());
+        $this->assertNull($this->testModel->fresh());
     }
 
-    private function createContact()
+    private function model()
     {
-        $contact = new Contact($this->postParams());
-        $this->contactTestModel->contacts()->save($contact);
+        $this->createTestTable();
 
-        return $contact->fresh();
+        return ContactTestModel::create(['name' => 'contactable']);
     }
 
-    private function postParams()
-    {
-        return [
-            '_params' => [
-                'contactable_type' => 'contactTestModel',
-                'contactable_id' => $this->contactTestModel->id,
-            ],
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'phone' => $this->faker->phoneNumber,
-            'email' => $this->faker->email,
-            'is_active' => 1,
-        ];
-    }
-
-    private function createContactTestModelsTable()
+    private function createTestTable()
     {
         Schema::create('contact_test_models', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
-    }
-
-    private function createContactTestModel()
-    {
-        return ContactTestModel::create(['name' => 'contactable']);
     }
 }
 
