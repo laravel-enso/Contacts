@@ -1,7 +1,7 @@
 <template>
     <modal v-on="$listeners"
         :show="true">
-        <vue-form class="box"
+        <vue-form class="box has-background-light"
             v-on="$listeners"
             :data="form"/>
     </modal>
