@@ -22,7 +22,8 @@ class Contact extends Model
     protected $loggableLabel = 'fullName';
 
     protected $loggable = [
-        'first_name', 'last_name', 'phone', 'email', 'position', 'is_active' => 'active state',
+        'first_name', 'last_name', 'phone', 'email', 'position',
+        'is_active' => 'active state',
     ];
 
     public function contactable()

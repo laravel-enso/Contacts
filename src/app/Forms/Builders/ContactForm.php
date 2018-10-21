@@ -20,6 +20,7 @@ class ContactForm
     {
         return $this->form
             ->title('Create')
+            ->actions('store')
             ->create();
     }
 
@@ -27,7 +28,7 @@ class ContactForm
     {
         return $this->form
             ->title('Edit')
-            ->actions(['update'])
+            ->actions('update')
             ->edit($contact);
     }
 }

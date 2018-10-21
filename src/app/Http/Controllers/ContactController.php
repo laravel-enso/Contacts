@@ -7,11 +7,10 @@ use LaravelEnso\Contacts\app\Models\Contact;
 use LaravelEnso\Contacts\app\Forms\Builders\ContactForm;
 use LaravelEnso\Contacts\app\Http\Resources\Contact as Resource;
 use LaravelEnso\Contacts\app\Http\Requests\ValidateContactRequest;
-use LaravelEnso\Contacts\app\Http\Requests\ValidateContactIndexRequest;
 
 class ContactController extends Controller
 {
-    public function index(ValidateContactIndexRequest $request)
+    public function index(ValidateContactRequest $request)
     {
         return Resource::collection(
             Contact::ordered()
