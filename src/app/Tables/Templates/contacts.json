@@ -1,6 +1,5 @@
 {
     "routePrefix": "core.contacts",
-    "readSuffix": "getTableData",
     "crtNo": true,
     "buttons": [
         "excel",
